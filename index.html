@@ -607,6 +607,17 @@
           transition: opacity 0.5s ease;
         }
 
+        .english-title {
+          font-size: 0.85rem;
+          color: #666;
+          font-style: italic;
+          margin-top: 0.3rem;
+          max-width: 250px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
           .header-brand, .header-nav {
@@ -1327,6 +1338,7 @@
                             price: temuPrice,
                             url: `https://www.temu.com/product/${temuProductId}.html`,
                             originalTitle: `${item.name} ${availableColors.join('/')} ${item.category === 'Bekleidung' ? availableSizes.join('/') : ''} - Hochwertige Qualität`,
+                            englishTitle: `${item.name} ${availableColors.join('/')} ${item.category === 'Bekleidung' ? availableSizes.join('/') : ''} - High Quality ${['Premium', 'Fashion', 'Modern', 'Stylish', 'Trendy'][Math.floor(Math.random() * 5)]} ${item.category === 'Elektronik' ? 'Electronics' : item.category === 'Bekleidung' ? 'Apparel' : item.category === 'Beauty' ? 'Beauty Products' : item.category === 'Haushaltswaren' ? 'Household Items' : 'Toys & Games'}`,
                             productId: temuProductId,
                             shipping: `${shippingDays}-${shippingDays + 5} Tage`,
                             rating: temuRating,
@@ -1515,7 +1527,10 @@
                     }
                     
                     productRow.innerHTML = `
-                        <td>${product.name}</td>
+                        <td>
+                            <div>${product.name}</div>
+                            <div class="english-title">${product.temu.englishTitle}</div>
+                        </td>
                         <td>${product.temu.price.toFixed(2)}€</td>
                         <td>${product.kaufland.price.toFixed(2)}€</td>
                         <td>${profit.toFixed(2)}€</td>
@@ -1581,8 +1596,12 @@
                         </a>
                     </div>
                     <div class="detail-item">
-                        <span class="detail-label">Originaltitel:</span>
+                        <span class="detail-label">Originaltitel (DE):</span>
                         <span>${product.temu.originalTitle}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Originaltitel (EN):</span>
+                        <span>${product.temu.englishTitle}</span>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Produkt-ID:</span>
