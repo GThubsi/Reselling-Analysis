@@ -28,6 +28,10 @@
           --text-color: #333;
           --light-bg: #f5f7fa;
           --border-color: #e1e4e8;
+          --hover-bg: #f0f0f0;
+          --positive: #4CAF50;
+          --negative: #f44336;
+          --neutral: #ff9800;
         }
 
         body {
@@ -138,11 +142,13 @@
           background-color: var(--light-bg);
         }
 
-        /* Product grid */
+        /* Toolbar styles */
         .toolbar {
           display: flex;
           justify-content: space-between;
           margin-bottom: 2rem;
+          flex-wrap: wrap;
+          gap: 1rem;
         }
 
         .search-box {
@@ -179,97 +185,26 @@
           cursor: pointer;
         }
 
-        .products-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-          gap: 1.5rem;
-        }
-
-        .product-card {
-          border: 1px solid var(--border-color);
-          border-radius: 8px;
-          overflow: hidden;
-          transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .product-card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .product-header {
-          padding: 1rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          border-bottom: 1px solid var(--border-color);
-        }
-
-        .product-header h3 {
-          margin: 0;
-          font-size: 1.1rem;
-        }
-
-        .margin-badge {
-          background-color: var(--secondary-color);
-          color: white;
-          padding: 0.3rem 0.6rem;
-          border-radius: 4px;
-          font-size: 0.8rem;
-          font-weight: 600;
-        }
-
-        .product-prices {
-          padding: 1rem;
-        }
-
-        .price-item {
-          display: flex;
-          align-items: center;
-          margin-bottom: 0.5rem;
-        }
-
-        .price-label {
-          width: 80px;
-          font-weight: 500;
-        }
-
-        .price-value {
-          font-weight: 600;
-          margin-right: auto;
-        }
-
-        .product-link {
-          color: var(--primary-color);
-        }
-
-        .product-meta {
-          background-color: var(--light-bg);
-          padding: 1rem;
-          display: flex;
-          justify-content: space-between;
-        }
-
-        .meta-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          font-size: 0.9rem;
-          color: #666;
-        }
-
         /* Calculator styles */
         .calculator-container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-        }
-
-        .calculator-form {
           background-color: white;
           padding: 2rem;
           border-radius: 8px;
           box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .calculator-form {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+          .calculator-form {
+            grid-template-columns: 1fr;
+          }
         }
 
         .form-group {
@@ -299,6 +234,7 @@
           padding: 1.5rem;
           border-radius: 8px;
           margin-top: 2rem;
+          grid-column: 1 / -1;
         }
 
         .results-card h3 {
@@ -318,18 +254,182 @@
           font-weight: 600;
         }
 
-        .chart-container {
-          background-color: white;
-          padding: 2rem;
-          border-radius: 8px;
-          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        /* Product table styles */
+        .products-table-container {
+          overflow-x: auto;
+          margin-bottom: 2rem;
         }
 
-        .chart-note {
-          text-align: center;
+        .products-table {
+          width: 100%;
+          border-collapse: collapse;
+          border: 1px solid var(--border-color);
+          background-color: white;
+        }
+
+        .products-table th {
+          background-color: var(--primary-color);
+          color: white;
+          text-align: left;
+          padding: 1rem;
+          position: sticky;
+          top: 0;
+        }
+
+        .products-table td {
+          padding: 0.8rem 1rem;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .products-table tr:hover {
+          background-color: var(--hover-bg);
+        }
+
+        .product-row {
+          cursor: pointer;
+        }
+
+        .product-details {
+          display: none;
+          background-color: var(--light-bg);
+          padding: 1rem;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-details.active {
+          display: table-row;
+        }
+
+        .product-details-content {
+          padding: 1rem;
+        }
+
+        .details-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 1rem;
+        }
+
+        .detail-group {
+          margin-bottom: 1rem;
+        }
+
+        .detail-group h4 {
+          margin: 0 0 0.5rem 0;
+          font-size: 1rem;
+        }
+
+        .detail-group p {
+          margin: 0;
           font-size: 0.9rem;
+        }
+
+        .detail-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.3rem;
+        }
+
+        .detail-label {
+          font-weight: 500;
           color: #666;
-          margin-top: 1rem;
+        }
+
+        .product-link {
+          color: var(--primary-color);
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          gap: 0.3rem;
+        }
+
+        .product-link:hover {
+          text-decoration: underline;
+        }
+
+        .expand-icon {
+          transition: transform 0.3s ease;
+        }
+
+        .expanded .expand-icon {
+          transform: rotate(180deg);
+        }
+
+        .margin-badge {
+          display: inline-block;
+          padding: 0.2rem 0.5rem;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          font-weight: 600;
+          color: white;
+        }
+
+        .margin-high {
+          background-color: var(--positive);
+        }
+
+        .margin-medium {
+          background-color: var(--neutral);
+        }
+
+        .margin-low {
+          background-color: var(--negative);
+        }
+
+        /* Filter controls */
+        .filter-controls {
+          display: flex;
+          gap: 1rem;
+          margin-bottom: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .filter-group {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .filter-label {
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .filter-select {
+          padding: 0.5rem;
+          border: 1px solid var(--border-color);
+          border-radius: 4px;
+        }
+
+        /* Pagination */
+        .pagination {
+          display: flex;
+          justify-content: center;
+          margin-top: 2rem;
+          gap: 0.5rem;
+        }
+
+        .pagination-button {
+          padding: 0.5rem 1rem;
+          border: 1px solid var(--border-color);
+          background-color: white;
+          cursor: pointer;
+          border-radius: 4px;
+        }
+
+        .pagination-button:hover {
+          background-color: var(--hover-bg);
+        }
+
+        .pagination-button.active {
+          background-color: var(--primary-color);
+          color: white;
+          border-color: var(--primary-color);
+        }
+
+        .pagination-button:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
         }
 
         /* Strategy section */
@@ -465,10 +565,6 @@
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-          .calculator-container {
-            grid-template-columns: 1fr;
-          }
-          
           .header-brand, .header-nav {
             text-align: center;
           }
@@ -490,11 +586,13 @@
           .search-box {
             width: 100%;
           }
+
+          .products-table th:nth-child(4),
+          .products-table td:nth-child(4) {
+            display: none;
+          }
         }
     </style>
-    
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -506,7 +604,7 @@
             </div>
             <nav class="header-nav">
                 <ul>
-                    <li><a href="#analyse" class="nav-link">Produktanalyse</a></li>
+                    <li><a href="#produkte" class="nav-link">Top-Produkte</a></li>
                     <li><a href="#rechner" class="nav-link">Gewinnrechner</a></li>
                     <li><a href="#strategie" class="nav-link">Strategie</a></li>
                 </ul>
@@ -520,7 +618,7 @@
             <div class="hero-content">
                 <h2>Maximiere deine Reselling-Gewinne</h2>
                 <p class="hero-text">Datengetriebene Analyse der profitabelsten Produkte für den Weiterverkauf von Temu auf Kaufland.at</p>
-                <a href="#analyse" class="cta-button">Jetzt analysieren →</a>
+                <a href="#produkte" class="cta-button">Top-Produkte anzeigen →</a>
             </div>
         </div>
     </section>
@@ -528,9 +626,10 @@
     <!-- Main Content -->
     <main class="main-content">
         <!-- Produktanalyse Section -->
-        <section id="analyse" class="section">
+        <section id="produkte" class="section">
             <div class="container">
-                <h2 class="section-title">Top Reselling-Produkte</h2>
+                <h2 class="section-title">100 Top Reselling-Produkte</h2>
+                
                 <div class="toolbar">
                     <div class="search-box">
                         <input type="text" id="search" placeholder="Produkte filtern..." aria-label="Produktsuche">
@@ -549,8 +648,66 @@
                     </button>
                 </div>
                 
-                <div class="products-grid" id="products-container">
-                    <!-- Produkte werden dynamisch via JavaScript geladen -->
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <span class="filter-label">Kategorie:</span>
+                        <select id="category-filter" class="filter-select">
+                            <option value="all">Alle Kategorien</option>
+                            <option value="Elektronik">Elektronik</option>
+                            <option value="Bekleidung">Bekleidung</option>
+                            <option value="Beauty">Beauty</option>
+                            <option value="Haushaltswaren">Haushaltswaren</option>
+                            <option value="Spielzeug">Spielzeug</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Sortieren nach:</span>
+                        <select id="sort-by" class="filter-select">
+                            <option value="margin">Marge (hoch → niedrig)</option>
+                            <option value="roi">ROI (hoch → niedrig)</option>
+                            <option value="profit">Gewinn (hoch → niedrig)</option>
+                            <option value="price">Preis (niedrig → hoch)</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <span class="filter-label">Min. Marge:</span>
+                        <select id="margin-filter" class="filter-select">
+                            <option value="0">Alle</option>
+                            <option value="100">100%+</option>
+                            <option value="200">200%+</option>
+                            <option value="300">300%+</option>
+                            <option value="400">400%+</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="products-table-container">
+                    <table class="products-table" id="products-table">
+                        <thead>
+                            <tr>
+                                <th>Produkt</th>
+                                <th>Temu (€)</th>
+                                <th>Kaufland (€)</th>
+                                <th>Gewinn (€)</th>
+                                <th>ROI</th>
+                                <th>Marge</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody id="products-tbody">
+                            <!-- Produkte werden dynamisch via JavaScript geladen -->
+                            <tr>
+                                <td colspan="7" class="loading-message">
+                                    <div class="loading-spinner"></div>
+                                    <p>Lade Produktdaten...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="pagination" id="pagination">
+                    <!-- Pagination wird dynamisch via JavaScript geladen -->
                 </div>
             </div>
         </section>
@@ -570,8 +727,18 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="sales-volume">Verkaufsmenge: <span id="volume-value">50</span> Stück/Monat</label>
-                            <input type="range" id="sales-volume" class="form-range" min="10" max="500" value="50" step="5">
+                            <label for="sales-volume">Verkaufsmenge:</label>
+                            <input type="number" id="sales-volume" class="form-control" value="50" min="1" max="1000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="temu-price">Temu Einkaufspreis (€):</label>
+                            <input type="number" id="temu-price" class="form-control" value="0.00" min="0" step="0.01">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="kaufland-price">Kaufland Verkaufspreis (€):</label>
+                            <input type="number" id="kaufland-price" class="form-control" value="0.00" min="0" step="0.01">
                         </div>
                         
                         <div class="form-group">
@@ -579,26 +746,34 @@
                             <input type="number" id="fee-percentage" class="form-control" value="15" min="5" max="30">
                         </div>
                         
+                        <div class="form-group">
+                            <label for="shipping-cost">Versandkosten (€):</label>
+                            <input type="number" id="shipping-cost" class="form-control" value="0.00" min="0" step="0.01">
+                        </div>
+                        
                         <div class="results-card">
                             <h3>Ergebnis</h3>
                             <div class="result-item">
-                                <span>Bruttogewinn:</span>
-                                <strong id="gross-profit">0.00€</strong>
+                                <span>Bruttogewinn pro Stück:</span>
+                                <strong id="gross-profit-unit">0.00€</strong>
                             </div>
                             <div class="result-item">
-                                <span>Netto Gewinn:</span>
-                                <strong id="net-profit">0.00€</strong>
+                                <span>Nettogewinn pro Stück:</span>
+                                <strong id="net-profit-unit">0.00€</strong>
+                            </div>
+                            <div class="result-item">
+                                <span>Gesamtgewinn:</span>
+                                <strong id="total-profit">0.00€</strong>
+                            </div>
+                            <div class="result-item">
+                                <span>ROI:</span>
+                                <strong id="roi">0%</strong>
                             </div>
                             <div class="result-item highlight">
                                 <span>Marge:</span>
                                 <strong id="margin">0%</strong>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="chart-container">
-                        <canvas id="profit-chart" aria-label="Gewinnentwicklung Diagramm" role="img"></canvas>
-                        <p class="chart-note">Die Grafik zeigt die prognostizierte Gewinnentwicklung basierend auf der Verkaufsmenge</p>
                     </div>
                 </div>
             </div>
@@ -616,6 +791,8 @@
                             <li>Artikel mit mindestens 300% Marge</li>
                             <li>Geringe Retourenquote (<8%)</li>
                             <li>Kompakte Verpackungsgröße</li>
+                            <li>Produkte mit hoher Nachfrage und wenig Konkurrenz</li>
+                            <li>Saisonale Trends beachten</li>
                         </ul>
                     </div>
                     
@@ -626,6 +803,8 @@
                             <li>5-10% unter Marktführerpreis</li>
                             <li>Bündelangebote für höhere Margen</li>
                             <li>Dynamische Anpassung nach Nachfrage</li>
+                            <li>Versandkosten in Kalkulation einbeziehen</li>
+                            <li>Sonderaktionen für Lagerumschlag</li>
                         </ul>
                     </div>
                     
@@ -636,6 +815,8 @@
                             <li>Professionelle Produktbilder</li>
                             <li>SEO-optimierte Beschreibungen</li>
                             <li>Keywords aus Kaufland-Suche nutzen</li>
+                            <li>Detaillierte Produktspezifikationen</li>
+                            <li>Positive Bewertungen fördern</li>
                         </ul>
                     </div>
                 </div>
@@ -682,21 +863,31 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize variables
-            let products = [];
-            let chart = null;
+            let allProducts = [];
+            let displayedProducts = [];
+            let currentPage = 1;
+            const productsPerPage = 10;
             
             // DOM elements
             const productSelect = document.getElementById('product-select');
             const salesVolume = document.getElementById('sales-volume');
-            const volumeValue = document.getElementById('volume-value');
+            const temuPrice = document.getElementById('temu-price');
+            const kauflandPrice = document.getElementById('kaufland-price');
             const feePercentage = document.getElementById('fee-percentage');
-            const grossProfit = document.getElementById('gross-profit');
-            const netProfit = document.getElementById('net-profit');
+            const shippingCost = document.getElementById('shipping-cost');
+            const grossProfitUnit = document.getElementById('gross-profit-unit');
+            const netProfitUnit = document.getElementById('net-profit-unit');
+            const totalProfit = document.getElementById('total-profit');
+            const roi = document.getElementById('roi');
             const margin = document.getElementById('margin');
             const lastUpdated = document.getElementById('last-updated');
-            const productsContainer = document.getElementById('products-container');
+            const productsTbody = document.getElementById('products-tbody');
             const searchInput = document.getElementById('search');
             const exportBtn = document.getElementById('export-btn');
+            const categoryFilter = document.getElementById('category-filter');
+            const sortBy = document.getElementById('sort-by');
+            const marginFilter = document.getElementById('margin-filter');
+            const pagination = document.getElementById('pagination');
             
             // Set last updated date
             if (lastUpdated) {
@@ -707,23 +898,66 @@
             loadProductData();
             
             // Event listeners
-            if (salesVolume) {
-                salesVolume.addEventListener('input', function() {
-                    volumeValue.textContent = this.value;
-                    calculateProfit();
+            if (productSelect) {
+                productSelect.addEventListener('change', function() {
+                    const selectedProductId = parseInt(this.value);
+                    if (!isNaN(selectedProductId)) {
+                        const product = allProducts.find(p => p.id === selectedProductId);
+                        if (product) {
+                            temuPrice.value = product.temu.price.toFixed(2);
+                            kauflandPrice.value = product.kaufland.price.toFixed(2);
+                            calculateProfit();
+                        }
+                    }
                 });
+            }
+            
+            if (salesVolume) {
+                salesVolume.addEventListener('input', calculateProfit);
+            }
+            
+            if (temuPrice) {
+                temuPrice.addEventListener('input', calculateProfit);
+            }
+            
+            if (kauflandPrice) {
+                kauflandPrice.addEventListener('input', calculateProfit);
             }
             
             if (feePercentage) {
                 feePercentage.addEventListener('input', calculateProfit);
             }
             
-            if (productSelect) {
-                productSelect.addEventListener('change', calculateProfit);
+            if (shippingCost) {
+                shippingCost.addEventListener('input', calculateProfit);
             }
             
             if (searchInput) {
-                searchInput.addEventListener('input', filterProducts);
+                searchInput.addEventListener('input', function() {
+                    currentPage = 1;
+                    filterAndDisplayProducts();
+                });
+            }
+            
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', function() {
+                    currentPage = 1;
+                    filterAndDisplayProducts();
+                });
+            }
+            
+            if (sortBy) {
+                sortBy.addEventListener('change', function() {
+                    currentPage = 1;
+                    filterAndDisplayProducts();
+                });
+            }
+            
+            if (marginFilter) {
+                marginFilter.addEventListener('change', function() {
+                    currentPage = 1;
+                    filterAndDisplayProducts();
+                });
             }
             
             if (exportBtn) {
@@ -732,83 +966,12 @@
             
             // Functions
             function loadProductData() {
-                // Sample product data
-                const sampleProducts = [
-                    {
-                        id: 1,
-                        name: "Bluetooth-Kopfhörer",
-                        category: "Elektronik",
-                        temu: {
-                            price: 3.99,
-                            url: "https://www.temu.com/bluetooth-headphones.html"
-                        },
-                        kaufland: {
-                            price: 19.99,
-                            url: "https://www.kaufland.at/bluetooth-headphones.html"
-                        },
-                        forecast: {
-                            margin: 400,
-                            monthly_sales: 35
-                        }
-                    },
-                    {
-                        id: 2,
-                        name: "T-Shirt Basic",
-                        category: "Bekleidung",
-                        temu: {
-                            price: 2.50,
-                            url: "https://www.temu.com/basic-tshirt.html"
-                        },
-                        kaufland: {
-                            price: 9.99,
-                            url: "https://www.kaufland.at/basic-tshirt.html"
-                        },
-                        forecast: {
-                            margin: 300,
-                            monthly_sales: 42
-                        }
-                    },
-                    {
-                        id: 3,
-                        name: "Make-up Pinsel Set",
-                        category: "Beauty",
-                        temu: {
-                            price: 4.25,
-                            url: "https://www.temu.com/makeup-brushes.html"
-                        },
-                        kaufland: {
-                            price: 12.99,
-                            url: "https://www.kaufland.at/makeup-brushes.html"
-                        },
-                        forecast: {
-                            margin: 205,
-                            monthly_sales: 28
-                        }
-                    },
-                    {
-                        id: 4,
-                        name: "LED Lichterkette",
-                        category: "Haushaltswaren",
-                        temu: {
-                            price: 3.75,
-                            url: "https://www.temu.com/led-string-lights.html"
-                        },
-                        kaufland: {
-                            price: 14.95,
-                            url: "https://www.kaufland.at/led-string-lights.html"
-                        },
-                        forecast: {
-                            margin: 298,
-                            monthly_sales: 22
-                        }
-                    }
-                ];
-                
-                products = sampleProducts;
+                // Generate 100 sample products
+                allProducts = generateSampleProducts(100);
                 
                 // Populate product dropdown
                 if (productSelect) {
-                    products.forEach(product => {
+                    allProducts.forEach(product => {
                         const option = document.createElement('option');
                         option.value = product.id;
                         option.textContent = `${product.name} (${product.forecast.margin}% Marge)`;
@@ -816,234 +979,708 @@
                     });
                 }
                 
-                // Display products in grid
-                displayProducts(products);
+                // Display products in table
+                filterAndDisplayProducts();
                 
                 // Initialize calculator with first product
-                if (products.length > 0 && productSelect) {
-                    productSelect.value = products[0].id;
+                if (allProducts.length > 0 && productSelect) {
+                    productSelect.value = allProducts[0].id;
+                    temuPrice.value = allProducts[0].temu.price.toFixed(2);
+                    kauflandPrice.value = allProducts[0].kaufland.price.toFixed(2);
                     calculateProfit();
                 }
             }
             
-            function displayProducts(productsToDisplay) {
-                if (!productsContainer) return;
+            function generateSampleProducts(count) {
+                const categories = ['Elektronik', 'Bekleidung', 'Beauty', 'Haushaltswaren', 'Spielzeug'];
+                const products = [];
                 
-                // Clear container
-                productsContainer.innerHTML = '';
+                // Electronic products
+                const electronicItems = [
+                    { name: 'Bluetooth-Kopfhörer', priceRange: [3.50, 6.99], kauflandMultiplier: [4, 6] },
+                    { name: 'USB-C Ladekabel', priceRange: [1.20, 2.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Smartphone Halterung', priceRange: [1.50, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Wireless Charger', priceRange: [4.99, 8.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Bluetooth Lautsprecher', priceRange: [5.99, 12.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Selfie Ring Licht', priceRange: [2.99, 5.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Smartwatch Armband', priceRange: [1.99, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Mini Webcam', priceRange: [4.99, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Gaming Mauspad', priceRange: [2.99, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Kopfhörer Tasche', priceRange: [1.50, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Tablet Ständer', priceRange: [2.99, 6.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Handy Stativ', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Laptop Kühler', priceRange: [5.99, 12.99], kauflandMultiplier: [2.5, 4] },
+                    { name: 'Maus kabellos', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Tastatur Abdeckung', priceRange: [1.99, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'HDMI Adapter', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Smartphone Objektiv Set', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Powerbank 5000mAh', priceRange: [5.99, 12.99], kauflandMultiplier: [2.5, 4] },
+                    { name: 'Kopfhörer Splitter', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Mini Bluetooth Empfänger', priceRange: [2.99, 6.99], kauflandMultiplier: [3, 4.5] }
+                ];
                 
-                if (productsToDisplay.length === 0) {
-                    productsContainer.innerHTML = '<p class="no-results">Keine Produkte gefunden. Bitte versuchen Sie es später erneut.</p>';
-                    return;
-                }
+                // Clothing products
+                const clothingItems = [
+                    { name: 'Basic T-Shirt', priceRange: [2.50, 4.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Socken 5er Pack', priceRange: [2.99, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Baseball Cap', priceRange: [3.50, 6.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Leggings', priceRange: [3.99, 7.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Yoga Hose', priceRange: [5.99, 9.99], kauflandMultiplier: [2.5, 4] },
+                    { name: 'Sportshorts', priceRange: [4.50, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Baumwollschal', priceRange: [2.99, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Fingerlose Handschuhe', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Sonnenhut', priceRange: [3.50, 6.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Stirnband', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Schlafmaske', priceRange: [1.99, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Hausschuhe', priceRange: [4.99, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Badekappe', priceRange: [1.99, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Sportbeutel', priceRange: [2.99, 6.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Geldbörse', priceRange: [3.50, 7.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Gürtel', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Sonnenbrille', priceRange: [2.50, 5.99], kauflandMultiplier: [4, 6] },
+                    { name: 'Armband Set', priceRange: [1.99, 4.50], kauflandMultiplier: [4, 6] },
+                    { name: 'Halskette', priceRange: [2.50, 5.99], kauflandMultiplier: [4, 6] },
+                    { name: 'Ohrringe Set', priceRange: [1.99, 4.99], kauflandMultiplier: [4, 6] }
+                ];
                 
-                productsToDisplay.forEach(product => {
-                    const card = document.createElement('div');
-                    card.className = 'product-card';
-                    card.innerHTML = `
-                        <div class="product-header">
-                            <h3>${product.name}</h3>
-                            <span class="margin-badge">${product.forecast.margin}% Marge</span>
-                        </div>
-                        <div class="product-prices">
-                            <div class="price-item">
-                                <span class="price-label">Temu:</span>
-                                <span class="price-value">${product.temu.price.toFixed(2)}€</span>
-                                <a href="${product.temu.url}" target="_blank" class="product-link" aria-label="Auf Temu ansehen">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                        <polyline points="15 3 21 3 21 9"></polyline>
-                                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                                    </svg>
-                                </a>
-                            </div>
-                            <div class="price-item">
-                                <span class="price-label">Kaufland:</span>
-                                <span class="price-value">${product.kaufland.price.toFixed(2)}€</span>
-                                <a href="${product.kaufland.url}" target="_blank" class="product-link" aria-label="Auf Kaufland ansehen">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                        <polyline points="15 3 21 3 21 9"></polyline>
-                                        <line x1="10" y1="14" x2="21" y2="3"></line>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="product-meta">
-                            <div class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                                <span>${product.forecast.monthly_sales} Verkäufe/Monat</span>
-                            </div>
-                            <div class="meta-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="10"></circle>
-                                    <polyline points="12 6 12 12 16 14"></polyline>
-                                </svg>
-                                <span>Letztes Update: ${new Date().toLocaleDateString('de-AT')}</span>
-                            </div>
-                        </div>
-                    `;
-                    productsContainer.appendChild(card);
-                });
-            }
-            
-            function calculateProfit() {
-                if (!productSelect || !salesVolume || !feePercentage) return;
+                // Beauty products
+                const beautyItems = [
+                    { name: 'Make-up Pinsel Set', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Lidschatten Palette', priceRange: [2.99, 6.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Gesichtsmaske Set', priceRange: [1.99, 4.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Nagellack Set', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Kosmetiktasche', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Haarbürste', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Nagelfeilen Set', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Augenbrauen Schablonen', priceRange: [1.20, 2.99], kauflandMultiplier: [3, 6] },
+                    { name: 'Lippenstift Organizer', priceRange: [2.50, 5.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Wimpernzange', priceRange: [1.50, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Haarband Spa', priceRange: [1.20, 2.99], kauflandMultiplier: [3, 6] },
+                    { name: 'Gesichtsroller', priceRange: [2.99, 6.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Nagelknipser Set', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Haargummis 50er Pack', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 6] },
+                    { name: 'Schminkkoffer', priceRange: [5.99, 12.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Handcreme Set', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Duftkerze', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Massagebürste', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Peelinghandschuhe', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Fußmassageroller', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] }
+                ];
                 
-                const selectedProductId = parseInt(productSelect.value);
-                if (isNaN(selectedProductId)) {
-                    resetCalculator();
-                    return;
-                }
+                // Household products
+                const householdItems = [
+                    { name: 'LED Lichterkette', priceRange: [3.50, 7.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Silikon Backform', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Küchenuhr', priceRange: [3.99, 8.50], kauflandMultiplier: [3, 4] },
+                    { name: 'Gewürzregal', priceRange: [4.99, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Schneidebrett Set', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Topfuntersetzer', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Küchenhelfer Set', priceRange: [4.50, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Aufbewahrungsboxen', priceRange: [3.50, 7.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Duschvorhang', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Badezimmerteppich', priceRange: [4.50, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Seifenspender', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Wandhaken Set', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Tischdecke', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Kissenbezüge 2er Set', priceRange: [3.50, 7.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Bilderrahmen', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Wanduhr', priceRange: [4.99, 10.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Kerzenhalter', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Vase', priceRange: [3.50, 7.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Türstopper', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Pflanzensprüher', priceRange: [2.50, 5.50], kauflandMultiplier: [3, 4.5] }
+                ];
                 
-                const product = products.find(p => p.id === selectedProductId);
-                if (!product) {
-                    resetCalculator();
-                    return;
-                }
+                // Toy products
+                const toyItems = [
+                    { name: 'Puzzle 1000 Teile', priceRange: [4.99, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Plüschtier', priceRange: [3.50, 7.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Spielkarten', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Fidget Toys Set', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Brettspiel', priceRange: [5.99, 12.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Spielzeugauto', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Bastelset', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Malbuch für Erwachsene', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Jojo', priceRange: [1.50, 3.99], kauflandMultiplier: [3, 5] },
+                    { name: 'Frisbee', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Seifenblasen Set', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 6] },
+                    { name: 'Springball', priceRange: [1.99, 4.50], kauflandMultiplier: [3, 5] },
+                    { name: 'Wasserpistole', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Sandspielzeug', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Knetmasse Set', priceRange: [2.50, 5.99], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Sticker Set', priceRange: [1.50, 3.50], kauflandMultiplier: [3, 6] },
+                    { name: 'Spielzeug Werkzeugset', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Puppen Zubehör', priceRange: [2.99, 6.50], kauflandMultiplier: [3, 4.5] },
+                    { name: 'Spielzeug Küchenset', priceRange: [4.50, 9.99], kauflandMultiplier: [3, 4] },
+                    { name: 'Bausteine Set', priceRange: [3.99, 8.99], kauflandMultiplier: [3, 4] }
+                ];
                 
-                const volume = parseInt(salesVolume.value);
-                const fee = parseFloat(feePercentage.value) / 100;
+                // Combine all items
+                const allItems = [
+                    ...electronicItems.map(item => ({ ...item, category: 'Elektronik' })),
+                    ...clothingItems.map(item => ({ ...item, category: 'Bekleidung' })),
+                    ...beautyItems.map(item => ({ ...item, category: 'Beauty' })),
+                    ...householdItems.map(item => ({ ...item, category: 'Haushaltswaren' })),
+                    ...toyItems.map(item => ({ ...item, category: 'Spielzeug' }))
+                ];
                 
-                const temuPrice = product.temu.price;
-                const kauflandPrice = product.kaufland.price;
-                
-                const grossProfitValue = (kauflandPrice - temuPrice) * volume;
-                const netProfitValue = grossProfitValue - (kauflandPrice * fee * volume);
-                const marginValue = ((netProfitValue / (temuPrice * volume)) * 100).toFixed(0);
-                
-                grossProfit.textContent = grossProfitValue.toFixed(2) + '€';
-                netProfit.textContent = netProfitValue.toFixed(2) + '€';
-                margin.textContent = marginValue + '%';
-                
-                updateChart(product, volume);
-            }
-            
-            function resetCalculator() {
-                grossProfit.textContent = '0.00€';
-                netProfit.textContent = '0.00€';
-                margin.textContent = '0%';
-                
-                if (chart) {
-                    chart.destroy();
-                    chart = null;
-                }
-            }
-            
-            function updateChart(product, volume) {
-                const ctx = document.getElementById('profit-chart');
-                if (!ctx) return;
-                
-                // Destroy existing chart if it exists
-                if (chart) {
-                    chart.destroy();
-                }
-                
-                // Calculate profit for different volumes
-                const volumes = [10, 20, 30, 40, 50, 75, 100, 150, 200];
-                const profits = volumes.map(vol => {
-                    const grossProfit = (product.kaufland.price - product.temu.price) * vol;
-                    const fee = parseFloat(feePercentage.value) / 100;
-                    return grossProfit - (product.kaufland.price * fee * vol);
-                });
-                
-                // Create new chart
-                chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: volumes,
-                        datasets: [{
-                            label: 'Nettogewinn (€)',
-                            data: profits,
-                            backgroundColor: 'rgba(0, 82, 180, 0.2)',
-                            borderColor: 'rgba(0, 82, 180, 1)',
-                            borderWidth: 2,
-                            pointBackgroundColor: 'rgba(0, 82, 180, 1)',
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                title: {
-                                    display: true,
-                                    text: 'Nettogewinn (€)'
-                                }
-                            },
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Verkaufsvolumen (Stück)'
-                                }
-                            }
-                        },
-                        plugins: {
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return `Nettogewinn: ${context.parsed.y.toFixed(2)}€`;
-                                    }
-                                }
+                // Generate random products
+                for (let i = 1; i <= count; i++) {
+                    const itemIndex = Math.floor(Math.random() * allItems.length);
+                    const item = allItems[itemIndex];
+                    
+                    // Generate random Temu price within range
+                    const temuPrice = parseFloat((Math.random() * (item.priceRange[1] - item.priceRange[0]) + item.priceRange[0]).toFixed(2));
+                    
+                    // Generate random multiplier within range
+                    const multiplier = Math.random() * (item.kauflandMultiplier[1] - item.kauflandMultiplier[0]) + item.kauflandMultiplier[0];
+                    
+                    // Calculate Kaufland price
+                    const kauflandPrice = parseFloat((temuPrice * multiplier).toFixed(2));
+                    
+                    // Calculate profit and margin
+                    const profit = kauflandPrice - temuPrice;
+                    const margin = Math.round((profit / temuPrice) * 100);
+                    
+                    // Generate random monthly sales
+                    const monthlySales = Math.floor(Math.random() * 50) + 10;
+                    
+                    // Generate random colors
+                    const colors = ['Schwarz', 'Weiß', 'Rot', 'Blau', 'Grün', 'Grau', 'Rosa', 'Lila', 'Gelb', 'Orange', 'Braun'];
+                    const availableColors = [];
+                    const colorCount = Math.floor(Math.random() * 4) + 1;
+                    for (let j = 0; j < colorCount; j++) {
+                        const color = colors[Math.floor(Math.random() * colors.length)];
+                        if (!availableColors.includes(color)) {
+                            availableColors.push(color);
+                        }
+                    }
+                    
+                    // Generate random sizes if clothing
+                    let availableSizes = [];
+                    if (item.category === 'Bekleidung') {
+                        const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+                        const sizeCount = Math.floor(Math.random() * 4) + 2;
+                        for (let j = 0; j < sizeCount; j++) {
+                            const size = sizes[Math.floor(Math.random() * sizes.length)];
+                            if (!availableSizes.includes(size)) {
+                                availableSizes.push(size);
                             }
                         }
                     }
-                });
-                
-                // Highlight current volume on chart
-                const currentVolumeIndex = volumes.indexOf(volume);
-                if (currentVolumeIndex !== -1) {
-                    chart.data.datasets[0].pointBackgroundColor = volumes.map((_, index) => 
-                        index === currentVolumeIndex ? 'rgba(76, 175, 80, 1)' : 'rgba(0, 82, 180, 1)'
-                    );
-                    chart.data.datasets[0].pointRadius = volumes.map((_, index) => 
-                        index === currentVolumeIndex ? 6 : 4
-                    );
-                    chart.update();
+                    
+                    // Generate random product numbers
+                    const temuProductId = 'T' + Math.floor(Math.random() * 10000000).toString().padStart(7, '0');
+                    const kauflandProductId = 'K' + Math.floor(Math.random() * 10000000).toString().padStart(7, '0');
+                    
+                    // Generate random shipping time
+                    const shippingDays = Math.floor(Math.random() * 10) + 5;
+                    
+                    // Generate random ratings
+                    const temuRating = (Math.random() * 1.5 + 3.5).toFixed(1);
+                    const kauflandRating = (Math.random() * 1.5 + 3.5).toFixed(1);
+                    
+                    // Generate random review counts
+                    const temuReviews = Math.floor(Math.random() * 1000) + 50;
+                    const kauflandReviews = Math.floor(Math.random() * 200) + 10;
+                    
+                    // Create product object
+                    const product = {
+                        id: i,
+                        name: item.name,
+                        category: item.category,
+                        temu: {
+                            price: temuPrice,
+                            url: `https://www.temu.com/product/${temuProductId}.html`,
+                            originalTitle: `${item.name} ${availableColors.join('/')} ${item.category === 'Bekleidung' ? availableSizes.join('/') : ''} - Hochwertige Qualität`,
+                            productId: temuProductId,
+                            shipping: `${shippingDays}-${shippingDays + 5} Tage`,
+                            rating: temuRating,
+                            reviews: temuReviews,
+                            seller: `${['Super', 'Mega', 'Top', 'Best', 'Prime'][Math.floor(Math.random() * 5)]} ${['Shop', 'Store', 'Outlet', 'Market', 'Deals'][Math.floor(Math.random() * 5)]}`
+                        },
+                        kaufland: {
+                            price: kauflandPrice,
+                            url: `https://www.kaufland.at/product/${kauflandProductId}.html`,
+                            originalTitle: `${item.name} ${item.category === 'Bekleidung' ? 'Größe ' + availableSizes.join('/') : ''} ${availableColors.join('/')} - Premium Qualität`,
+                            productId: kauflandProductId,
+                            shipping: `${Math.floor(Math.random() * 3) + 1}-${Math.floor(Math.random() * 2) + 2} Werktage`,
+                            rating: kauflandRating,
+                            reviews: kauflandReviews,
+                            seller: `${['Austria', 'Vienna', 'Alps', 'Euro', 'Royal'][Math.floor(Math.random() * 5)]} ${['Trading', 'Commerce', 'Retail', 'Shop', 'Store'][Math.floor(Math.random() * 5)]}`
+                        },
+                        details: {
+                            colors: availableColors,
+                            sizes: availableSizes,
+                            weight: parseFloat((Math.random() * 0.5 + 0.1).toFixed(2)) + ' kg',
+                            dimensions: `${Math.floor(Math.random() * 20) + 5}x${Math.floor(Math.random() * 15) + 5}x${Math.floor(Math.random() * 10) + 2} cm`,
+                            material: ['Kunststoff', 'Metall', 'Baumwolle', 'Polyester', 'Silikon', 'Holz'][Math.floor(Math.random() * 6)]
+                        },
+                        forecast: {
+                            margin: margin,
+                            monthly_sales: monthlySales,
+                            competition: Math.floor(Math.random() * 5) + 1,
+                            trend: ['steigend', 'stabil', 'leicht steigend', 'saisonal', 'leicht fallend'][Math.floor(Math.random() * 5)]
+                        }
+                    };
+                    
+                    products.push(product);
                 }
+                
+                return products;
             }
             
-            function filterProducts() {
-                if (!searchInput || !productsContainer) return;
+            function filterAndDisplayProducts() {
+                const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+                const categoryValue = categoryFilter ? categoryFilter.value : 'all';
+                const marginValue = marginFilter ? parseInt(marginFilter.value) : 0;
+                const sortValue = sortBy ? sortBy.value : 'margin';
                 
-                const searchTerm = searchInput.value.toLowerCase().trim();
+                // Filter products
+                displayedProducts = allProducts.filter(product => {
+                    // Search filter
+                    if (searchTerm && !product.name.toLowerCase().includes(searchTerm) && 
+                        !product.category.toLowerCase().includes(searchTerm)) {
+                        return false;
+                    }
+                    
+                    // Category filter
+                    if (categoryValue !== 'all' && product.category !== categoryValue) {
+                        return false;
+                    }
+                    
+                    // Margin filter
+                    if (marginValue > 0 && product.forecast.margin < marginValue) {
+                        return false;
+                    }
+                    
+                    return true;
+                });
                 
-                if (searchTerm === '') {
-                    displayProducts(products);
+                // Sort products
+                displayedProducts.sort((a, b) => {
+                    switch (sortValue) {
+                        case 'margin':
+                            return b.forecast.margin - a.forecast.margin;
+                        case 'roi':
+                            return (b.kaufland.price - b.temu.price) / b.temu.price - 
+                                   (a.kaufland.price - a.temu.price) / a.temu.price;
+                        case 'profit':
+                            return (b.kaufland.price - b.temu.price) - (a.kaufland.price - a.temu.price);
+                        case 'price':
+                            return a.temu.price - b.temu.price;
+                        default:
+                            return b.forecast.margin - a.forecast.margin;
+                    }
+                });
+                
+                // Update pagination
+                updatePagination();
+                
+                // Display products for current page
+                displayProductsForPage(currentPage);
+            }
+            
+            function updatePagination() {
+                if (!pagination) return;
+                
+                const totalPages = Math.ceil(displayedProducts.length / productsPerPage);
+                pagination.innerHTML = '';
+                
+                // Previous button
+                const prevButton = document.createElement('button');
+                prevButton.className = 'pagination-button';
+                prevButton.textContent = '←';
+                prevButton.disabled = currentPage === 1;
+                prevButton.addEventListener('click', () => {
+                    if (currentPage > 1) {
+                        currentPage--;
+                        displayProductsForPage(currentPage);
+                        updatePagination();
+                    }
+                });
+                pagination.appendChild(prevButton);
+                
+                // Page buttons
+                const maxVisiblePages = 5;
+                let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+                let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+                
+                if (endPage - startPage + 1 < maxVisiblePages) {
+                    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+                }
+                
+                for (let i = startPage; i <= endPage; i++) {
+                    const pageButton = document.createElement('button');
+                    pageButton.className = 'pagination-button' + (i === currentPage ? ' active' : '');
+                    pageButton.textContent = i;
+                    pageButton.addEventListener('click', () => {
+                        currentPage = i;
+                        displayProductsForPage(currentPage);
+                        updatePagination();
+                    });
+                    pagination.appendChild(pageButton);
+                }
+                
+                // Next button
+                const nextButton = document.createElement('button');
+                nextButton.className = 'pagination-button';
+                nextButton.textContent = '→';
+                nextButton.disabled = currentPage === totalPages;
+                nextButton.addEventListener('click', () => {
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        displayProductsForPage(currentPage);
+                        updatePagination();
+                    }
+                });
+                pagination.appendChild(nextButton);
+            }
+            
+            function displayProductsForPage(page) {
+                if (!productsTbody) return;
+                
+                // Clear table
+                productsTbody.innerHTML = '';
+                
+                // Calculate start and end index
+                const startIndex = (page - 1) * productsPerPage;
+                const endIndex = Math.min(startIndex + productsPerPage, displayedProducts.length);
+                
+                // No products message
+                if (displayedProducts.length === 0) {
+                    const noResultsRow = document.createElement('tr');
+                    noResultsRow.innerHTML = `
+                        <td colspan="7" class="no-results">
+                            <p>Keine Produkte gefunden. Bitte versuchen Sie andere Filterkriterien.</p>
+                        </td>
+                    `;
+                    productsTbody.appendChild(noResultsRow);
                     return;
                 }
                 
-                const filteredProducts = products.filter(product => 
-                    product.name.toLowerCase().includes(searchTerm) || 
-                    product.category.toLowerCase().includes(searchTerm)
-                );
+                // Add products
+                for (let i = startIndex; i < endIndex; i++) {
+                    const product = displayedProducts[i];
+                    const profit = product.kaufland.price - product.temu.price;
+                    const roi = ((profit / product.temu.price) * 100).toFixed(0);
+                    
+                    // Create product row
+                    const productRow = document.createElement('tr');
+                    productRow.className = 'product-row';
+                    productRow.dataset.productId = product.id;
+                    
+                    // Determine margin class
+                    let marginClass = 'margin-medium';
+                    if (product.forecast.margin >= 300) {
+                        marginClass = 'margin-high';
+                    } else if (product.forecast.margin < 100) {
+                        marginClass = 'margin-low';
+                    }
+                    
+                    productRow.innerHTML = `
+                        <td>${product.name}</td>
+                        <td>${product.temu.price.toFixed(2)}€</td>
+                        <td>${product.kaufland.price.toFixed(2)}€</td>
+                        <td>${profit.toFixed(2)}€</td>
+                        <td>${roi}%</td>
+                        <td><span class="margin-badge ${marginClass}">${product.forecast.margin}%</span></td>
+                        <td>
+                            <button class="expand-button">
+                                <svg class="expand-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                        </td>
+                    `;
+                    
+                    // Add click event to expand row
+                    productRow.addEventListener('click', function() {
+                        const productId = this.dataset.productId;
+                        const detailsRow = document.querySelector(`.product-details[data-product-id="${productId}"]`);
+                        
+                        if (detailsRow) {
+                            // Toggle details row
+                            detailsRow.classList.toggle('active');
+                            this.classList.toggle('expanded');
+                        } else {
+                            // Create details row
+                            const product = allProducts.find(p => p.id === parseInt(productId));
+                            if (product) {
+                                createDetailsRow(product, this);
+                                this.classList.add('expanded');
+                            }
+                        }
+                    });
+                    
+                    productsTbody.appendChild(productRow);
+                }
+            }
+            
+            function createDetailsRow(product, productRow) {
+                const detailsRow = document.createElement('tr');
+                detailsRow.className = 'product-details active';
+                detailsRow.dataset.productId = product.id;
                 
-                displayProducts(filteredProducts);
+                const detailsCell = document.createElement('td');
+                detailsCell.colSpan = 7;
+                
+                const detailsContent = document.createElement('div');
+                detailsContent.className = 'product-details-content';
+                
+                // Create details grid
+                const detailsGrid = document.createElement('div');
+                detailsGrid.className = 'details-grid';
+                
+                // Temu details
+                const temuDetails = document.createElement('div');
+                temuDetails.className = 'detail-group';
+                temuDetails.innerHTML = `
+                    <h4>Temu Details</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Originaltitel:</span>
+                        <span>${product.temu.originalTitle}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Produkt-ID:</span>
+                        <span>${product.temu.productId}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Versand:</span>
+                        <span>${product.temu.shipping}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Bewertung:</span>
+                        <span>${product.temu.rating} ★ (${product.temu.reviews} Bewertungen)</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Verkäufer:</span>
+                        <span>${product.temu.seller}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Link:</span>
+                        <a href="${product.temu.url}" target="_blank" class="product-link">
+                            Auf Temu ansehen
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                `;
+                
+                // Kaufland details
+                const kauflandDetails = document.createElement('div');
+                kauflandDetails.className = 'detail-group';
+                kauflandDetails.innerHTML = `
+                    <h4>Kaufland Details</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Originaltitel:</span>
+                        <span>${product.kaufland.originalTitle}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Produkt-ID:</span>
+                        <span>${product.kaufland.productId}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Versand:</span>
+                        <span>${product.kaufland.shipping}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Bewertung:</span>
+                        <span>${product.kaufland.rating} ★ (${product.kaufland.reviews} Bewertungen)</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Verkäufer:</span>
+                        <span>${product.kaufland.seller}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Link:</span>
+                        <a href="${product.kaufland.url}" target="_blank" class="product-link">
+                            Auf Kaufland ansehen
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                    </div>
+                `;
+                
+                // Product details
+                const productDetails = document.createElement('div');
+                productDetails.className = 'detail-group';
+                
+                let productDetailsHTML = `
+                    <h4>Produktdetails</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Kategorie:</span>
+                        <span>${product.category}</span>
+                    </div>
+                `;
+                
+                if (product.details.colors && product.details.colors.length > 0) {
+                    productDetailsHTML += `
+                        <div class="detail-item">
+                            <span class="detail-label">Farben:</span>
+                            <span>${product.details.colors.join(', ')}</span>
+                        </div>
+                    `;
+                }
+                
+                if (product.details.sizes && product.details.sizes.length > 0) {
+                    productDetailsHTML += `
+                        <div class="detail-item">
+                            <span class="detail-label">Größen:</span>
+                            <span>${product.details.sizes.join(', ')}</span>
+                        </div>
+                    `;
+                }
+                
+                productDetailsHTML += `
+                    <div class="detail-item">
+                        <span class="detail-label">Gewicht:</span>
+                        <span>${product.details.weight}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Abmessungen:</span>
+                        <span>${product.details.dimensions}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Material:</span>
+                        <span>${product.details.material}</span>
+                    </div>
+                `;
+                
+                productDetails.innerHTML = productDetailsHTML;
+                
+                // Market details
+                const marketDetails = document.createElement('div');
+                marketDetails.className = 'detail-group';
+                marketDetails.innerHTML = `
+                    <h4>Marktanalyse</h4>
+                    <div class="detail-item">
+                        <span class="detail-label">Monatliche Verkäufe:</span>
+                        <span>${product.forecast.monthly_sales}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Konkurrenz:</span>
+                        <span>${'★'.repeat(product.forecast.competition)}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Trend:</span>
+                        <span>${product.forecast.trend}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Gewinn pro Monat:</span>
+                        <span>${((product.kaufland.price - product.temu.price) * product.forecast.monthly_sales).toFixed(2)}€</span>
+                    </div>
+                `;
+                
+                // Add all details to grid
+                detailsGrid.appendChild(temuDetails);
+                detailsGrid.appendChild(kauflandDetails);
+                detailsGrid.appendChild(productDetails);
+                detailsGrid.appendChild(marketDetails);
+                
+                // Add grid to content
+                detailsContent.appendChild(detailsGrid);
+                
+                // Add content to cell
+                detailsCell.appendChild(detailsContent);
+                
+                // Add cell to row
+                detailsRow.appendChild(detailsCell);
+                
+                // Insert after product row
+                productRow.parentNode.insertBefore(detailsRow, productRow.nextSibling);
+            }
+            
+            function calculateProfit() {
+                if (!temuPrice || !kauflandPrice || !salesVolume || !feePercentage || !shippingCost) return;
+                
+                const temuPriceValue = parseFloat(temuPrice.value);
+                const kauflandPriceValue = parseFloat(kauflandPrice.value);
+                const volumeValue = parseInt(salesVolume.value);
+                const feeValue = parseFloat(feePercentage.value) / 100;
+                const shippingValue = parseFloat(shippingCost.value);
+                
+                if (isNaN(temuPriceValue) || isNaN(kauflandPriceValue) || isNaN(volumeValue) || isNaN(feeValue) || isNaN(shippingValue)) {
+                    resetCalculator();
+                    return;
+                }
+                
+                const grossProfitValue = kauflandPriceValue - temuPriceValue;
+                const netProfitValue = grossProfitValue - (kauflandPriceValue * feeValue) - shippingValue;
+                const totalProfitValue = netProfitValue * volumeValue;
+                const roiValue = ((netProfitValue / temuPriceValue) * 100).toFixed(0);
+                const marginValue = ((netProfitValue / temuPriceValue) * 100).toFixed(0);
+                
+                grossProfitUnit.textContent = grossProfitValue.toFixed(2) + '€';
+                netProfitUnit.textContent = netProfitValue.toFixed(2) + '€';
+                totalProfit.textContent = totalProfitValue.toFixed(2) + '€';
+                roi.textContent = roiValue + '%';
+                margin.textContent = marginValue + '%';
+            }
+            
+            function resetCalculator() {
+                grossProfitUnit.textContent = '0.00€';
+                netProfitUnit.textContent = '0.00€';
+                totalProfit.textContent = '0.00€';
+                roi.textContent = '0%';
+                margin.textContent = '0%';
             }
             
             function exportProductsToCSV() {
-                if (products.length === 0) return;
+                if (displayedProducts.length === 0) return;
                 
-                const headers = ['Produkt', 'Kategorie', 'Temu Preis (€)', 'Kaufland Preis (€)', 'Preisdifferenz (€)', 'Marge (%)', 'Monatliche Verkäufe'];
+                const headers = [
+                    'Produkt', 
+                    'Kategorie', 
+                    'Temu Preis (€)', 
+                    'Kaufland Preis (€)', 
+                    'Gewinn (€)', 
+                    'ROI (%)', 
+                    'Marge (%)',
+                    'Temu Titel',
+                    'Temu Produkt-ID',
+                    'Kaufland Titel',
+                    'Kaufland Produkt-ID',
+                    'Monatliche Verkäufe',
+                    'Farben',
+                    'Größen',
+                    'Material'
+                ];
                 
-                const rows = products.map(product => [
+                const rows = displayedProducts.map(product => [
                     product.name,
                     product.category,
                     product.temu.price.toFixed(2),
                     product.kaufland.price.toFixed(2),
                     (product.kaufland.price - product.temu.price).toFixed(2),
+                    (((product.kaufland.price - product.temu.price) / product.temu.price) * 100).toFixed(0),
                     product.forecast.margin,
-                    product.forecast.monthly_sales
+                    product.temu.originalTitle,
+                    product.temu.productId,
+                    product.kaufland.originalTitle,
+                    product.kaufland.productId,
+                    product.forecast.monthly_sales,
+                    product.details.colors.join('/'),
+                    product.details.sizes.join('/'),
+                    product.details.material
                 ]);
                 
                 let csvContent = headers.join(',') + '\n';
                 rows.forEach(row => {
-                    csvContent += row.join(',') + '\n';
+                    // Escape fields with commas
+                    const escapedRow = row.map(field => {
+                        if (typeof field === 'string' && (field.includes(',') || field.includes('"'))) {
+                            return `"${field.replace(/"/g, '""')}"`;
+                        }
+                        return field;
+                    });
+                    csvContent += escapedRow.join(',') + '\n';
                 });
                 
                 const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

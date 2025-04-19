@@ -6,14 +6,16 @@ Eine interaktive Web-Anwendung zur Analyse von Reselling-Möglichkeiten zwischen
 
 ## 📊 Projektübersicht
 
-Diese Webanwendung bietet eine datengetriebene Analyse der profitabelsten Produkte für den Weiterverkauf von Temu auf Kaufland.at. Sie enthält einen interaktiven Gewinnrechner, Produktvergleiche und strategische Empfehlungen für Reseller.
+Diese Webanwendung bietet eine datengetriebene Analyse der profitabelsten Produkte für den Weiterverkauf von Temu auf Kaufland.at. Sie enthält einen interaktiven Gewinnrechner, eine umfangreiche Produkttabelle mit 100 Top-Produkten und strategische Empfehlungen für Reseller.
 
 ### Hauptfunktionen
 
-- **Produktanalyse**: Vergleich von Preisen und Margen für verschiedene Produktkategorien
-- **Interaktiver Gewinnrechner**: Berechnung von Bruttogewinn, Nettogewinn und Margen basierend auf Verkaufsvolumen
-- **Gewinnvisualisierung**: Grafische Darstellung der Gewinnentwicklung bei verschiedenen Verkaufsmengen
+- **100 Top-Produkte**: Umfangreiche Tabelle mit 100 profitablen Reselling-Produkten
+- **Detaillierte Produktinformationen**: Aufklappbare Produktdetails mit Original-Titeln, Produktnummern, Farben und mehr
+- **Interaktiver Gewinnrechner**: Berechnung von Bruttogewinn, Nettogewinn, ROI und Margen mit manueller Preiseingabe
+- **Filteroptionen**: Sortierung und Filterung nach Kategorie, Marge und anderen Kriterien
 - **Strategieempfehlungen**: Optimale Vorgehensweise für Produktauswahl, Preisgestaltung und Listing-Optimierung
+- **CSV-Export**: Export aller Produktdaten für Offline-Analyse
 
 ## 🚀 Live-Demo
 
@@ -24,19 +26,33 @@ Die Anwendung ist unter [https://gthubsi.github.io/Reselling-Analysis/](https://
 - HTML5
 - CSS3 (mit Flexbox und Grid für responsive Layouts)
 - JavaScript (Vanilla JS)
-- [Chart.js](https://www.chartjs.org/) für Datenvisualisierung
+- Keine externen Abhängigkeiten (selbstständig lauffähig)
 
 ## 📋 Funktionsweise
 
 Die Anwendung bietet:
 
-1. **Produktübersicht**: Anzeige von Produkten mit Preisvergleichen zwischen Temu und Kaufland.at
-2. **Gewinnrechner**: 
-   - Auswahl eines Produkts
+1. **Produkttabelle mit 100 Top-Produkten**:
+   - Tabellarische Übersicht mit Preisen, Gewinn, ROI und Marge
+   - Aufklappbare Detailansicht für jedes Produkt
+   - Umfassende Produktinformationen für manuelle Recherche
+   - Original-Titel von Temu und Kaufland
+   - Produktnummern, Farben, Größen und weitere Spezifikationen
+   - Marktanalyse mit Verkaufsprognosen
+
+2. **Interaktiver Gewinnrechner**: 
+   - Auswahl eines Produkts aus der Datenbank
+   - Manuelle Eingabe von Temu Einkaufspreis und Kaufland Verkaufspreis
    - Anpassung der Verkaufsmenge
-   - Einstellung der Plattformgebühr
-   - Berechnung von Bruttogewinn, Nettogewinn und Marge
-3. **Gewinnvisualisierung**: Grafische Darstellung der Gewinnentwicklung bei verschiedenen Verkaufsmengen
+   - Einstellung der Plattformgebühr und Versandkosten
+   - Berechnung von Bruttogewinn, Nettogewinn, ROI und Marge
+
+3. **Filteroptionen**:
+   - Suche nach Produktnamen
+   - Filterung nach Kategorie
+   - Sortierung nach Marge, ROI, Gewinn oder Preis
+   - Filterung nach Mindestmarge
+
 4. **Strategieempfehlungen**: Tipps für optimale Produktauswahl, Preisgestaltung und Listing-Optimierung
 
 ## 🔧 Installation und lokale Nutzung
@@ -62,30 +78,18 @@ Die Anwendung bietet:
 
 ## 📝 Anpassung der Produktdaten
 
-Die Produktdaten sind direkt im JavaScript-Code in der `index.html` Datei eingebettet. Um eigene Produkte hinzuzufügen oder zu ändern:
+Die Produktdaten werden dynamisch im JavaScript-Code generiert. Um eigene Produkte hinzuzufügen oder zu ändern:
 
 1. Die `index.html` Datei in einem Texteditor öffnen
-2. Die `sampleProducts` Array im JavaScript-Teil suchen
-3. Produkte nach dem vorhandenen Schema hinzufügen oder ändern:
+2. Die `generateSampleProducts` Funktion im JavaScript-Teil suchen
+3. Die Produktkategorien und -eigenschaften nach Bedarf anpassen:
 
 ```javascript
-{
-    id: 5, // Eindeutige ID
-    name: "Produktname",
-    category: "Kategorie",
-    temu: {
-        price: 0.00, // Preis auf Temu
-        url: "https://www.temu.com/produkt-url"
-    },
-    kaufland: {
-        price: 0.00, // Preis auf Kaufland
-        url: "https://www.kaufland.at/produkt-url"
-    },
-    forecast: {
-        margin: 000, // Marge in Prozent
-        monthly_sales: 00 // Geschätzte monatliche Verkäufe
-    }
-}
+// Beispiel für das Hinzufügen neuer Produkte in einer Kategorie
+const newItems = [
+    { name: 'Neues Produkt', priceRange: [2.99, 5.99], kauflandMultiplier: [3, 4.5] },
+    // Weitere Produkte...
+];
 ```
 
 ## 🤝 Beitrag zum Projekt
