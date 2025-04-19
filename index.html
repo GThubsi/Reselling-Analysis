@@ -346,32 +346,59 @@
           color: #666;
         }
 
-        .product-link {
+        .product-link.prominent-link {
           color: var(--primary-color);
-          text-decoration: none;
+          font-size: 1.05rem;
           display: inline-flex;
           align-items: center;
-          gap: 0.3rem;
-        }
-
-        .product-link:hover {
-          text-decoration: underline;
-        }
-
-        .expand-icon {
-          transition: transform 0.3s ease;
-        }
-
-        .expanded .expand-icon {
-          transform: rotate(180deg);
-        }
-
-        .margin-badge {
-          display: inline-block;
-          padding: 0.2rem 0.5rem;
+          gap: 0.4rem;
+          padding: 0.3rem 0.5rem;
+          border: 1px solid var(--primary-color);
           border-radius: 4px;
-          font-size: 0.8rem;
-          font-weight: 600;
+          transition: background-color 0.2s, color 0.2s;
+        }
+        
+        .product-link.prominent-link:hover {
+          background-color: var(--primary-color);
+          color: white;
+        }
+        
+        .direct-link {
+          margin-top: 0.8rem;
+        }
+        
+        .button-group {
+          display: flex;
+          gap: 0.8rem;
+        }
+        
+        .action-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.8rem 1.2rem;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-weight: 500;
+          transition: transform 0.2s, opacity 0.2s;
+        }
+        
+        .action-button:hover {
+          transform: translateY(-2px);
+        }
+        
+        .action-button:active {
+          transform: translateY(0);
+        }
+        
+        .refresh-button {
+          background-color: var(--secondary-color);
+          color: white;
+        }
+        
+        .export-button {
+          background-color: var(--primary-color);
           color: white;
         }
 
@@ -568,10 +595,16 @@
           to { transform: rotate(360deg); }
         }
 
-        .no-results {
+        .success-message {
+          background-color: var(--secondary-color);
+          color: white;
+          padding: 0.8rem 1rem;
+          border-radius: 4px;
+          margin-bottom: 1rem;
           text-align: center;
-          padding: 2rem;
-          color: #666;
+          font-weight: 500;
+          opacity: 1;
+          transition: opacity 0.5s ease;
         }
 
         /* Responsive adjustments */
@@ -649,14 +682,25 @@
                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                         </svg>
                     </div>
-                    <button id="export-btn" class="export-button">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                            <polyline points="7 10 12 15 17 10"></polyline>
-                            <line x1="12" y1="15" x2="12" y2="3"></line>
-                        </svg>
-                        CSV Export
-                    </button>
+                    <div class="button-group">
+                        <button id="refresh-btn" class="action-button refresh-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 4v6h-6"></path>
+                                <path d="M1 20v-6h6"></path>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                                <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                            </svg>
+                            Top-Produkte aktualisieren
+                        </button>
+                        <button id="export-btn" class="action-button export-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            CSV Export
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="filter-controls">
@@ -973,6 +1017,85 @@
             
             if (exportBtn) {
                 exportBtn.addEventListener('click', exportProductsToCSV);
+            }
+            
+            // Add refresh button functionality
+            const refreshBtn = document.getElementById('refresh-btn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    // Show loading spinner
+                    productsTbody.innerHTML = `
+                        <tr>
+                            <td colspan="7" class="loading-message">
+                                <div class="loading-spinner"></div>
+                                <p>Aktualisiere Produktdaten...</p>
+                            </td>
+                        </tr>
+                    `;
+                    
+                    // Simulate loading delay
+                    setTimeout(function() {
+                        // Generate new products
+                        allProducts = generateSampleProducts(100);
+                        
+                        // Update product dropdown
+                        if (productSelect) {
+                            // Clear existing options except the first one
+                            while (productSelect.options.length > 1) {
+                                productSelect.remove(1);
+                            }
+                            
+                            // Add new options
+                            allProducts.forEach(product => {
+                                const option = document.createElement('option');
+                                option.value = product.id;
+                                option.textContent = `${product.name} (${product.forecast.margin}% Marge)`;
+                                productSelect.appendChild(option);
+                            });
+                            
+                            // Select first product
+                            if (allProducts.length > 0) {
+                                productSelect.value = allProducts[0].id;
+                                temuPrice.value = allProducts[0].temu.price.toFixed(2);
+                                kauflandPrice.value = allProducts[0].kaufland.price.toFixed(2);
+                                calculateProfit();
+                            }
+                        }
+                        
+                        // Update last updated date
+                        if (lastUpdated) {
+                            const now = new Date();
+                            lastUpdated.textContent = now.toLocaleDateString('de-AT') + ' ' + 
+                                                     now.toLocaleTimeString('de-AT', {hour: '2-digit', minute:'2-digit'});
+                        }
+                        
+                        // Reset filters
+                        if (searchInput) searchInput.value = '';
+                        if (categoryFilter) categoryFilter.value = 'all';
+                        if (sortBy) sortBy.value = 'margin';
+                        if (marginFilter) marginFilter.value = '0';
+                        
+                        // Reset pagination
+                        currentPage = 1;
+                        
+                        // Display new products
+                        filterAndDisplayProducts();
+                        
+                        // Show success message
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'success-message';
+                        successMessage.textContent = 'Produkte erfolgreich aktualisiert!';
+                        document.querySelector('.filter-controls').prepend(successMessage);
+                        
+                        // Remove success message after 3 seconds
+                        setTimeout(function() {
+                            successMessage.style.opacity = '0';
+                            setTimeout(function() {
+                                successMessage.remove();
+                            }, 500);
+                        }, 3000);
+                    }, 1500);
+                });
             }
             
             // Functions
@@ -1451,7 +1574,11 @@
                 temuDetails.innerHTML = `
                     <h4>Temu Details</h4>
                     <div class="product-image">
-                        <img src="${product.temu.image}" alt="${product.name} auf Temu" width="150" height="150">
+                        <a href="${product.temu.url}" target="_blank" title="Direkt zum Produkt auf Temu">
+                            <img src="https://img.temu.com/o/product/${product.temu.productId}_s.jpg" 
+                                 alt="${product.name} auf Temu" width="150" height="150"
+                                 onerror="this.onerror=null; this.src='https://img.temu.com/o/product/g/default_s.jpg';">
+                        </a>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Originaltitel:</span>
@@ -1473,11 +1600,11 @@
                         <span class="detail-label">Verkäufer:</span>
                         <span>${product.temu.seller}</span>
                     </div>
-                    <div class="detail-item">
+                    <div class="detail-item direct-link">
                         <span class="detail-label">Link:</span>
-                        <a href="${product.temu.url}" target="_blank" class="product-link">
-                            Auf Temu ansehen
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="${product.temu.url}" target="_blank" class="product-link prominent-link">
+                            <strong>Auf Temu ansehen</strong>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                                 <polyline points="15 3 21 3 21 9"></polyline>
                                 <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -1492,7 +1619,11 @@
                 kauflandDetails.innerHTML = `
                     <h4>Kaufland Details</h4>
                     <div class="product-image">
-                        <img src="${product.kaufland.image}" alt="${product.name} auf Kaufland" width="150" height="150">
+                        <a href="${product.kaufland.url}" target="_blank" title="Direkt zum Produkt auf Kaufland">
+                            <img src="https://media.kaufland.com/product-images/500x500/${product.kaufland.productId}.jpg" 
+                                 alt="${product.name} auf Kaufland" width="150" height="150"
+                                 onerror="this.onerror=null; this.src='https://media.kaufland.com/images/default-fallback.jpg';">
+                        </a>
                     </div>
                     <div class="detail-item">
                         <span class="detail-label">Originaltitel:</span>
@@ -1514,11 +1645,11 @@
                         <span class="detail-label">Verkäufer:</span>
                         <span>${product.kaufland.seller}</span>
                     </div>
-                    <div class="detail-item">
+                    <div class="detail-item direct-link">
                         <span class="detail-label">Link:</span>
-                        <a href="${product.kaufland.url}" target="_blank" class="product-link">
-                            Auf Kaufland ansehen
-                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <a href="${product.kaufland.url}" target="_blank" class="product-link prominent-link">
+                            <strong>Auf Kaufland ansehen</strong>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                                 <polyline points="15 3 21 3 21 9"></polyline>
                                 <line x1="10" y1="14" x2="21" y2="3"></line>
