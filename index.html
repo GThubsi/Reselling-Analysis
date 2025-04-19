@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temu → Kaufland.at Reselling-Analyse | Österreich</title>
+    <meta name="description" content="Profitabelste Produkte für Reselling von Temu auf Kaufland.at mit Echtzeit-Preisvergleichen und Gewinnberechnung">
+    
+    <!-- Open Graph Meta Tags für Social Sharing -->
+    <meta property="og:title" content="Temu zu Kaufland Reselling-Analyse">
+    <meta property="og:description" content="Maximiere deine Gewinnmargen beim Reselling in Österreich">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://[your-username].github.io/temu-kaufland-analyzer">
+    <meta property="og:image" content="https://[your-username].github.io/temu-kaufland-analyzer/images/social-preview.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script src="js/app.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-brand">
+                <h1>Temu → Kaufland.at</h1>
+                <p class="subtitle">Reselling-Analyse für Österreich</p>
+            </div>
+            <nav class="header-nav">
+                <ul>
+                    <li><a href="#analyse" class="nav-link">Produktanalyse</a></li>
+                    <li><a href="#rechner" class="nav-link">Gewinnrechner</a></li>
+                    <li><a href="#strategie" class="nav-link">Strategie</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Maximiere deine Reselling-Gewinne</h2>
+                <p class="hero-text">Datengetriebene Analyse der profitabelsten Produkte für den Weiterverkauf von Temu auf Kaufland.at</p>
+                <a href="#analyse" class="cta-button">Jetzt analysieren →</a>
+            </div>
+            <div class="hero-image">
+                <img src="images/hero-chart.svg" alt="Gewinnchart" width="400">
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Produktanalyse Section -->
+        <section id="analyse" class="section">
+            <div class="container">
+                <h2 class="section-title">Top Reselling-Produkte</h2>
+                <div class="toolbar">
+                    <div class="search-box">
+                        <input type="text" id="search" placeholder="Produkte filtern..." aria-label="Produktsuche">
+                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </div>
+                    <button id="export-btn" class="export-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        CSV Export
+                    </button>
+                </div>
+                
+                <div class="products-grid" id="products-container">
+                    <!-- Produkte werden dynamisch via JavaScript geladen -->
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gewinnrechner Section -->
+        <section id="rechner" class="section bg-light">
+            <div class="container">
+                <h2 class="section-title">Interaktiver Gewinnrechner</h2>
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label for="product-select">Produkt auswählen:</label>
+                            <select id="product-select" class="form-control">
+                                <option value="" disabled selected>Bitte Produkt wählen...</option>
+                                <!-- Options werden via JS geladen -->
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sales-volume">Verkaufsmenge: <span id="volume-value">50</span> Stück/Monat</label>
+                            <input type="range" id="sales-volume" class="form-range" min="10" max="500" value="50" step="5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fee-percentage">Plattformgebühr (%):</label>
+                            <input type="number" id="fee-percentage" class="form-control" value="15" min="5" max="30">
+                        </div>
+                        
+                        <div class="results-card">
+                            <h3>Ergebnis</h3>
+                            <div class="result-item">
+                                <span>Bruttogewinn:</span>
+                                <strong id="gross-profit">0.00€</strong>
+                            </div>
+                            <div class="result-item">
+                                <span>Netto Gewinn:</span>
+                                <strong id="net-profit">0.00€</strong>
+                            </div>
+                            <div class="result-item highlight">
+                                <span>Marge:</span>
+                                <strong id="margin">0%</strong>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="profit-chart" aria-label="Gewinnentwicklung Diagramm" role="img"></canvas>
+                        <p class="chart-note">Die Grafik zeigt die prognostizierte Gewinnentwicklung basierend auf der Verkaufsmenge</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Strategie Section -->
+        <section id="strategie" class="section">
+            <div class="container">
+                <h2 class="section-title">Optimale Verkaufsstrategie</h2>
+                <div class="strategy-grid">
+                    <div class="strategy-card">
+                        <div class="strategy-icon">1</div>
+                        <h3>Produktauswahl</h3>
+                        <ul>
+                            <li>Artikel mit mindestens 300% Marge</li>
+                            <li>Geringe Retourenquote (<8%)</li>
+                            <li>Kompakte Verpackungsgröße</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="strategy-card">
+                        <div class="strategy-icon">2</div>
+                        <h3>Preisgestaltung</h3>
+                        <ul>
+                            <li>5-10% unter Marktführerpreis</li>
+                            <li>Bündelangebote für höhere Margen</li>
+                            <li>Dynamische Anpassung nach Nachfrage</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="strategy-card">
+                        <div class="strategy-icon">3</div>
+                        <h3>Listing-Optimierung</h3>
+                        <ul>
+                            <li>Professionelle Produktbilder</li>
+                            <li>SEO-optimierte Beschreibungen</li>
+                            <li>Keywords aus Kaufland-Suche nutzen</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Temu → Kaufland Analyzer</h3>
+                    <p>Datengetriebene Reselling-Strategien für Österreich</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Ressourcen</h4>
+                    <ul>
+                        <li><a href="https://www.kaufland.at/" target="_blank" rel="noopener">Kaufland.at Händlerportal</a></li>
+                        <li><a href="https://www.temu.com/" target="_blank" rel="noopener">Temu Großhandel</a></li>
+                        <li><a href="https://www.wko.at/" target="_blank" rel="noopener">WKO Ratgeber</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-meta">
+                    <p>Daten zuletzt aktualisiert: <span id="last-updated">Lade...</span></p>
+                    <p class="github-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        <a href="https://github.com/[your-username]/temu-kaufland-analyzer" target="_blank" rel="noopener">Auf GitHub ansehen</a>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© 2023 Temu-Kaufland Analyzer | Keine offizielle Partnerschaft mit Temu oder Kaufland</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lade-Skript für Produktdaten -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ladeindikator anzeigen
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.className = 'loading-spinner';
+            document.getElementById('products-container').appendChild(loadingSpinner);
+            
+            // Produktdaten laden
+            fetch('api/products.json')
+                .then(response => response.json())
+                .then(products => {
+                    // Entferne Ladeindikator
+                    document.querySelector('.loading-spinner').remove();
+                    
+                    // Zeige Produkte an
+                    const container = document.getElementById('products-container');
+                    
+                    if (products.length === 0) {
+                        container.innerHTML = '<p class="no-results">Keine Produkte gefunden. Bitte versuchen Sie es später erneut.</p>';
+                        return;
+                    }
+                    
+                    products.forEach(product => {
+                        const card = document.createElement('div');
+                        card.className = 'product-card';
+                        card.innerHTML = `
+                            <div class="product-header">
+                                <h3>${product.name}</h3>
+                                <span class="margin-badge">${product.forecast.margin}% Marge</span>
+                            </div>
+                            <div class="product-prices">
+                                <div class="price-item">
+                                    <span class="price-label">Temu:</span>
+                                    <span class="price-value">${product.temu.price.toFixed(2)}€</span>
+                                    <a href="${product.temu.url}" target="_blank" class="product-link" aria-label="Auf Temu ansehen">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                </div>
+                                <div class="price-item">
+                                    <span class="price-label">Kaufland:</span>
+                                    <span class="price-value">${product.kaufland.price.toFixed(2)}€</span>
+                                    <a href="${product.kaufland.url}" target="_blank" class="product-link" aria-label="Auf Kaufland ansehen">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                            <polyline points="15 3 21 3 21 9"></polyline>
+                                            <line x1="10" y1="14" x2="21" y2="3"></line>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="product-meta">
+                                <div class="meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                    </svg>
+                                    <span>${product.forecast.monthly_sales} Verkäufe/Monat</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <polyline points="12 6 12 12 16 14"></polyline>
+                                    </svg>
+                                    <span>Letztes Update: ${new Date().toLocaleDateString('de-AT')}</span>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                    
+                    // Aktualisiere das letzte Update-Datum im Footer
+                    document.getElementById('last-updated').textContent = new Date().toLocaleString('de-AT');
+                })
+                .catch(error => {
+                    console.error('Fehler beim Laden der Produktdaten:', error);
+                    document.getElementById('products-container').innerHTML = `
+                        <div class="error-message">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                            <p>Die Produktdaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</p>
+                        </div>
+                    `;
+                });
+        });
+    </script>
+</body>
+</html>
