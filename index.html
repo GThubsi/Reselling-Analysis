@@ -313,6 +313,17 @@
         .detail-group {
           margin-bottom: 1rem;
         }
+        
+        .product-image {
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+        
+        .product-image img {
+          border-radius: 8px;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+          object-fit: cover;
+        }
 
         .detail-group h4 {
           margin: 0 0 0.5rem 0;
@@ -1197,7 +1208,8 @@
                             shipping: `${shippingDays}-${shippingDays + 5} Tage`,
                             rating: temuRating,
                             reviews: temuReviews,
-                            seller: `${['Super', 'Mega', 'Top', 'Best', 'Prime'][Math.floor(Math.random() * 5)]} ${['Shop', 'Store', 'Outlet', 'Market', 'Deals'][Math.floor(Math.random() * 5)]}`
+                            seller: `${['Super', 'Mega', 'Top', 'Best', 'Prime'][Math.floor(Math.random() * 5)]} ${['Shop', 'Store', 'Outlet', 'Market', 'Deals'][Math.floor(Math.random() * 5)]}`,
+                            image: `https://picsum.photos/seed/temu${i}/200/200`
                         },
                         kaufland: {
                             price: kauflandPrice,
@@ -1207,7 +1219,8 @@
                             shipping: `${Math.floor(Math.random() * 3) + 1}-${Math.floor(Math.random() * 2) + 2} Werktage`,
                             rating: kauflandRating,
                             reviews: kauflandReviews,
-                            seller: `${['Austria', 'Vienna', 'Alps', 'Euro', 'Royal'][Math.floor(Math.random() * 5)]} ${['Trading', 'Commerce', 'Retail', 'Shop', 'Store'][Math.floor(Math.random() * 5)]}`
+                            seller: `${['Austria', 'Vienna', 'Alps', 'Euro', 'Royal'][Math.floor(Math.random() * 5)]} ${['Trading', 'Commerce', 'Retail', 'Shop', 'Store'][Math.floor(Math.random() * 5)]}`,
+                            image: `https://picsum.photos/seed/kaufland${i}/200/200`
                         },
                         details: {
                             colors: availableColors,
@@ -1437,6 +1450,9 @@
                 temuDetails.className = 'detail-group';
                 temuDetails.innerHTML = `
                     <h4>Temu Details</h4>
+                    <div class="product-image">
+                        <img src="${product.temu.image}" alt="${product.name} auf Temu" width="150" height="150">
+                    </div>
                     <div class="detail-item">
                         <span class="detail-label">Originaltitel:</span>
                         <span>${product.temu.originalTitle}</span>
@@ -1475,6 +1491,9 @@
                 kauflandDetails.className = 'detail-group';
                 kauflandDetails.innerHTML = `
                     <h4>Kaufland Details</h4>
+                    <div class="product-image">
+                        <img src="${product.kaufland.image}" alt="${product.name} auf Kaufland" width="150" height="150">
+                    </div>
                     <div class="detail-item">
                         <span class="detail-label">Originaltitel:</span>
                         <span>${product.kaufland.originalTitle}</span>
