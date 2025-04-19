@@ -1,0 +1,118 @@
+# Temu → Kaufland.at Reselling-Analyse
+
+Eine interaktive Web-Anwendung zur Analyse von Reselling-Möglichkeiten zwischen Temu und Kaufland.at für den österreichischen Markt.
+
+<!-- Hinweis: Ersetzen Sie diesen Kommentar durch ein Screenshot-Bild Ihrer Website, sobald sie live ist -->
+
+## 📊 Projektübersicht
+
+Diese Webanwendung bietet eine datengetriebene Analyse der profitabelsten Produkte für den Weiterverkauf von Temu auf Kaufland.at. Sie enthält einen interaktiven Gewinnrechner, Produktvergleiche und strategische Empfehlungen für Reseller.
+
+### Hauptfunktionen
+
+- **Produktanalyse**: Vergleich von Preisen und Margen für verschiedene Produktkategorien
+- **Interaktiver Gewinnrechner**: Berechnung von Bruttogewinn, Nettogewinn und Margen basierend auf Verkaufsvolumen
+- **Gewinnvisualisierung**: Grafische Darstellung der Gewinnentwicklung bei verschiedenen Verkaufsmengen
+- **Strategieempfehlungen**: Optimale Vorgehensweise für Produktauswahl, Preisgestaltung und Listing-Optimierung
+
+## 🚀 Live-Demo
+
+Die Anwendung ist unter [https://gthubsi.github.io/Reselling-Analysis/](https://gthubsi.github.io/Reselling-Analysis/) verfügbar.
+
+## 🛠️ Technologien
+
+- HTML5
+- CSS3 (mit Flexbox und Grid für responsive Layouts)
+- JavaScript (Vanilla JS)
+- [Chart.js](https://www.chartjs.org/) für Datenvisualisierung
+
+## 📋 Funktionsweise
+
+Die Anwendung bietet:
+
+1. **Produktübersicht**: Anzeige von Produkten mit Preisvergleichen zwischen Temu und Kaufland.at
+2. **Gewinnrechner**: 
+   - Auswahl eines Produkts
+   - Anpassung der Verkaufsmenge
+   - Einstellung der Plattformgebühr
+   - Berechnung von Bruttogewinn, Nettogewinn und Marge
+3. **Gewinnvisualisierung**: Grafische Darstellung der Gewinnentwicklung bei verschiedenen Verkaufsmengen
+4. **Strategieempfehlungen**: Tipps für optimale Produktauswahl, Preisgestaltung und Listing-Optimierung
+
+## 🔧 Installation und lokale Nutzung
+
+1. Repository klonen:
+   ```bash
+   git clone https://github.com/gthubsi/Reselling-Analysis.git
+   ```
+
+2. In das Projektverzeichnis wechseln:
+   ```bash
+   cd Reselling-Analysis
+   ```
+
+3. Die `index.html` Datei in einem Webbrowser öffnen oder einen lokalen Server starten:
+   ```bash
+   # Mit Python
+   python -m http.server
+   
+   # Mit Node.js (nach Installation von http-server)
+   npx http-server
+   ```
+
+## 📝 Anpassung der Produktdaten
+
+Die Produktdaten sind direkt im JavaScript-Code in der `index.html` Datei eingebettet. Um eigene Produkte hinzuzufügen oder zu ändern:
+
+1. Die `index.html` Datei in einem Texteditor öffnen
+2. Die `sampleProducts` Array im JavaScript-Teil suchen
+3. Produkte nach dem vorhandenen Schema hinzufügen oder ändern:
+
+```javascript
+{
+    id: 5, // Eindeutige ID
+    name: "Produktname",
+    category: "Kategorie",
+    temu: {
+        price: 0.00, // Preis auf Temu
+        url: "https://www.temu.com/produkt-url"
+    },
+    kaufland: {
+        price: 0.00, // Preis auf Kaufland
+        url: "https://www.kaufland.at/produkt-url"
+    },
+    forecast: {
+        margin: 000, // Marge in Prozent
+        monthly_sales: 00 // Geschätzte monatliche Verkäufe
+    }
+}
+```
+
+## 🤝 Beitrag zum Projekt
+
+Beiträge sind willkommen! So können Sie zum Projekt beitragen:
+
+1. Fork des Repositories erstellen
+2. Feature-Branch erstellen (`git checkout -b feature/AmazingFeature`)
+3. Änderungen committen (`git commit -m 'Add some AmazingFeature'`)
+4. Branch pushen (`git push origin feature/AmazingFeature`)
+5. Pull Request erstellen
+
+## 📄 Lizenz
+
+Dieses Projekt ist unter der MIT-Lizenz lizenziert - siehe die [LICENSE](LICENSE) Datei für Details.
+
+## ⚠️ Haftungsausschluss
+
+Diese Anwendung dient nur zu Informationszwecken. Die bereitgestellten Daten und Berechnungen basieren auf Schätzungen und sollten nicht als finanzielle Beratung betrachtet werden. Es besteht keine offizielle Partnerschaft mit Temu oder Kaufland.
+
+## 📧 Kontakt
+
+Bei Fragen oder Anregungen können Sie ein Issue im Repository erstellen oder mich direkt kontaktieren:
+
+- GitHub: [@gthubsi](https://github.com/gthubsi)
+- E-Mail: [ihre-email@example.com](mailto:ihre-email@example.com)
+
+---
+
+Erstellt mit ❤️ für die österreichische Reselling-Community

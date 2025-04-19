@@ -10,8 +10,8 @@
     <meta property="og:title" content="Temu zu Kaufland Reselling-Analyse">
     <meta property="og:description" content="Maximiere deine Gewinnmargen beim Reselling in Österreich">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://[your-username].github.io/temu-kaufland-analyzer">
-    <meta property="og:image" content="https://[your-username].github.io/temu-kaufland-analyzer/images/social-preview.jpg">
+    <meta property="og:url" content="https://gthubsi.github.io/Reselling-Analysis">
+    <meta property="og:image" content="https://gthubsi.github.io/Reselling-Analysis/images/social-preview.jpg">
     
     <!-- Favicon -->
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
@@ -20,12 +20,481 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link href="css/style.css" rel="stylesheet">
+    <style>
+        /* Base styles */
+        :root {
+          --primary-color: #0052B4;
+          --secondary-color: #4CAF50;
+          --text-color: #333;
+          --light-bg: #f5f7fa;
+          --border-color: #e1e4e8;
+        }
+
+        body {
+          font-family: 'Inter', sans-serif;
+          line-height: 1.6;
+          color: var(--text-color);
+          margin: 0;
+          padding: 0;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 20px;
+        }
+
+        /* Header styles */
+        .header {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 1rem 0;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+
+        .header-brand h1 {
+          margin: 0;
+          font-size: 1.5rem;
+        }
+
+        .subtitle {
+          margin: 0;
+          font-size: 0.9rem;
+          opacity: 0.9;
+        }
+
+        .header-nav ul {
+          display: flex;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-nav li {
+          margin-left: 1.5rem;
+        }
+
+        .nav-link {
+          color: white;
+          text-decoration: none;
+          padding: 0.5rem 0;
+          transition: opacity 0.2s;
+        }
+
+        .nav-link:hover {
+          opacity: 0.8;
+        }
+
+        /* Hero section */
+        .hero {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 3rem 0;
+        }
+
+        .hero-content {
+          max-width: 600px;
+        }
+
+        .hero h2 {
+          font-size: 2.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .hero-text {
+          font-size: 1.2rem;
+          margin-bottom: 2rem;
+        }
+
+        .cta-button {
+          display: inline-block;
+          background-color: white;
+          color: var(--primary-color);
+          padding: 0.8rem 1.5rem;
+          border-radius: 4px;
+          text-decoration: none;
+          font-weight: 600;
+          transition: transform 0.2s;
+        }
+
+        .cta-button:hover {
+          transform: translateY(-2px);
+        }
+
+        /* Section styles */
+        .section {
+          padding: 4rem 0;
+        }
+
+        .section-title {
+          text-align: center;
+          margin-bottom: 2rem;
+          font-size: 2rem;
+        }
+
+        .bg-light {
+          background-color: var(--light-bg);
+        }
+
+        /* Product grid */
+        .toolbar {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 2rem;
+        }
+
+        .search-box {
+          position: relative;
+          width: 300px;
+        }
+
+        .search-box input {
+          width: 100%;
+          padding: 0.8rem 1rem 0.8rem 2.5rem;
+          border: 1px solid var(--border-color);
+          border-radius: 4px;
+        }
+
+        .search-icon {
+          position: absolute;
+          left: 0.8rem;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 16px;
+          height: 16px;
+          color: #666;
+        }
+
+        .export-button {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.8rem 1.2rem;
+          background-color: var(--primary-color);
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+
+        .products-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 1.5rem;
+        }
+
+        .product-card {
+          border: 1px solid var(--border-color);
+          border-radius: 8px;
+          overflow: hidden;
+          transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .product-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .product-header {
+          padding: 1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid var(--border-color);
+        }
+
+        .product-header h3 {
+          margin: 0;
+          font-size: 1.1rem;
+        }
+
+        .margin-badge {
+          background-color: var(--secondary-color);
+          color: white;
+          padding: 0.3rem 0.6rem;
+          border-radius: 4px;
+          font-size: 0.8rem;
+          font-weight: 600;
+        }
+
+        .product-prices {
+          padding: 1rem;
+        }
+
+        .price-item {
+          display: flex;
+          align-items: center;
+          margin-bottom: 0.5rem;
+        }
+
+        .price-label {
+          width: 80px;
+          font-weight: 500;
+        }
+
+        .price-value {
+          font-weight: 600;
+          margin-right: auto;
+        }
+
+        .product-link {
+          color: var(--primary-color);
+        }
+
+        .product-meta {
+          background-color: var(--light-bg);
+          padding: 1rem;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .meta-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 0.9rem;
+          color: #666;
+        }
+
+        /* Calculator styles */
+        .calculator-container {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2rem;
+        }
+
+        .calculator-form {
+          background-color: white;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+          margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: 500;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 0.8rem;
+          border: 1px solid var(--border-color);
+          border-radius: 4px;
+        }
+
+        .form-range {
+          width: 100%;
+        }
+
+        .results-card {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 1.5rem;
+          border-radius: 8px;
+          margin-top: 2rem;
+        }
+
+        .results-card h3 {
+          margin-top: 0;
+          margin-bottom: 1rem;
+          font-size: 1.2rem;
+        }
+
+        .result-item {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 0.8rem;
+        }
+
+        .highlight {
+          font-size: 1.2rem;
+          font-weight: 600;
+        }
+
+        .chart-container {
+          background-color: white;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .chart-note {
+          text-align: center;
+          font-size: 0.9rem;
+          color: #666;
+          margin-top: 1rem;
+        }
+
+        /* Strategy section */
+        .strategy-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+          gap: 2rem;
+        }
+
+        .strategy-card {
+          background-color: white;
+          padding: 2rem;
+          border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .strategy-icon {
+          width: 50px;
+          height: 50px;
+          background-color: var(--primary-color);
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+
+        .strategy-card h3 {
+          margin-top: 0;
+          margin-bottom: 1rem;
+        }
+
+        .strategy-card ul {
+          padding-left: 1.5rem;
+          margin-bottom: 0;
+        }
+
+        .strategy-card li {
+          margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        .footer {
+          background-color: var(--primary-color);
+          color: white;
+          padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 2rem;
+          margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+          margin-top: 0;
+          margin-bottom: 0.5rem;
+        }
+
+        .footer-links h4 {
+          margin-top: 0;
+          margin-bottom: 1rem;
+        }
+
+        .footer-links ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .footer-links li {
+          margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+          color: white;
+          opacity: 0.8;
+          text-decoration: none;
+        }
+
+        .footer-links a:hover {
+          opacity: 1;
+        }
+
+        .footer-meta {
+          font-size: 0.9rem;
+          opacity: 0.8;
+        }
+
+        .github-link {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .github-link a {
+          color: white;
+          text-decoration: none;
+        }
+
+        .footer-bottom {
+          text-align: center;
+          padding-top: 2rem;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          font-size: 0.9rem;
+          opacity: 0.7;
+        }
+
+        /* Loading spinner */
+        .loading-spinner {
+          width: 40px;
+          height: 40px;
+          border: 4px solid rgba(0,0,0,0.1);
+          border-left-color: var(--primary-color);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: 2rem auto;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        .no-results {
+          text-align: center;
+          padding: 2rem;
+          color: #666;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .calculator-container {
+            grid-template-columns: 1fr;
+          }
+          
+          .header-brand, .header-nav {
+            text-align: center;
+          }
+          
+          .header-nav ul {
+            justify-content: center;
+            margin-top: 1rem;
+          }
+          
+          .header-nav li:first-child {
+            margin-left: 0;
+          }
+          
+          .toolbar {
+            flex-direction: column;
+            gap: 1rem;
+          }
+          
+          .search-box {
+            width: 100%;
+          }
+        }
+    </style>
     
     <!-- JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-    <script src="js/app.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -52,9 +521,6 @@
                 <h2>Maximiere deine Reselling-Gewinne</h2>
                 <p class="hero-text">Datengetriebene Analyse der profitabelsten Produkte für den Weiterverkauf von Temu auf Kaufland.at</p>
                 <a href="#analyse" class="cta-button">Jetzt analysieren →</a>
-            </div>
-            <div class="hero-image">
-                <img src="images/hero-chart.svg" alt="Gewinnchart" width="400">
             </div>
         </div>
     </section>
@@ -85,7 +551,6 @@
                 
                 <div class="products-grid" id="products-container">
                     <!-- Produkte werden dynamisch via JavaScript geladen -->
-                    <div class="loading-spinner"></div>
                 </div>
             </div>
         </section>
@@ -202,7 +667,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
                         </svg>
-                        <a href="https://github.com/[your-username]/temu-kaufland-analyzer" target="_blank" rel="noopener">Auf GitHub ansehen</a>
+                        <a href="https://github.com/gthubsi/Reselling-Analysis" target="_blank" rel="noopener">Auf GitHub ansehen</a>
                     </p>
                 </div>
             </div>
@@ -213,97 +678,386 @@
         </div>
     </footer>
 
-    <!-- Lade-Skript für Produktdaten -->
+    <!-- JavaScript für Produktdaten und Funktionalität -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Ladeindikator anzeigen
-            const loadingSpinner = document.createElement('div');
-            loadingSpinner.className = 'loading-spinner';
-            document.getElementById('products-container').appendChild(loadingSpinner);
+            // Initialize variables
+            let products = [];
+            let chart = null;
             
-            // Produktdaten laden
-            fetch('api/products.json')
-                .then(response => response.json())
-                .then(products => {
-                    // Entferne Ladeindikator
-                    document.querySelector('.loading-spinner').remove();
-                    
-                    // Zeige Produkte an
-                    const container = document.getElementById('products-container');
-                    
-                    if (products.length === 0) {
-                        container.innerHTML = '<p class="no-results">Keine Produkte gefunden. Bitte versuchen Sie es später erneut.</p>';
-                        return;
+            // DOM elements
+            const productSelect = document.getElementById('product-select');
+            const salesVolume = document.getElementById('sales-volume');
+            const volumeValue = document.getElementById('volume-value');
+            const feePercentage = document.getElementById('fee-percentage');
+            const grossProfit = document.getElementById('gross-profit');
+            const netProfit = document.getElementById('net-profit');
+            const margin = document.getElementById('margin');
+            const lastUpdated = document.getElementById('last-updated');
+            const productsContainer = document.getElementById('products-container');
+            const searchInput = document.getElementById('search');
+            const exportBtn = document.getElementById('export-btn');
+            
+            // Set last updated date
+            if (lastUpdated) {
+                lastUpdated.textContent = new Date().toLocaleDateString('de-AT');
+            }
+            
+            // Load product data
+            loadProductData();
+            
+            // Event listeners
+            if (salesVolume) {
+                salesVolume.addEventListener('input', function() {
+                    volumeValue.textContent = this.value;
+                    calculateProfit();
+                });
+            }
+            
+            if (feePercentage) {
+                feePercentage.addEventListener('input', calculateProfit);
+            }
+            
+            if (productSelect) {
+                productSelect.addEventListener('change', calculateProfit);
+            }
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', filterProducts);
+            }
+            
+            if (exportBtn) {
+                exportBtn.addEventListener('click', exportProductsToCSV);
+            }
+            
+            // Functions
+            function loadProductData() {
+                // Sample product data
+                const sampleProducts = [
+                    {
+                        id: 1,
+                        name: "Bluetooth-Kopfhörer",
+                        category: "Elektronik",
+                        temu: {
+                            price: 3.99,
+                            url: "https://www.temu.com/bluetooth-headphones.html"
+                        },
+                        kaufland: {
+                            price: 19.99,
+                            url: "https://www.kaufland.at/bluetooth-headphones.html"
+                        },
+                        forecast: {
+                            margin: 400,
+                            monthly_sales: 35
+                        }
+                    },
+                    {
+                        id: 2,
+                        name: "T-Shirt Basic",
+                        category: "Bekleidung",
+                        temu: {
+                            price: 2.50,
+                            url: "https://www.temu.com/basic-tshirt.html"
+                        },
+                        kaufland: {
+                            price: 9.99,
+                            url: "https://www.kaufland.at/basic-tshirt.html"
+                        },
+                        forecast: {
+                            margin: 300,
+                            monthly_sales: 42
+                        }
+                    },
+                    {
+                        id: 3,
+                        name: "Make-up Pinsel Set",
+                        category: "Beauty",
+                        temu: {
+                            price: 4.25,
+                            url: "https://www.temu.com/makeup-brushes.html"
+                        },
+                        kaufland: {
+                            price: 12.99,
+                            url: "https://www.kaufland.at/makeup-brushes.html"
+                        },
+                        forecast: {
+                            margin: 205,
+                            monthly_sales: 28
+                        }
+                    },
+                    {
+                        id: 4,
+                        name: "LED Lichterkette",
+                        category: "Haushaltswaren",
+                        temu: {
+                            price: 3.75,
+                            url: "https://www.temu.com/led-string-lights.html"
+                        },
+                        kaufland: {
+                            price: 14.95,
+                            url: "https://www.kaufland.at/led-string-lights.html"
+                        },
+                        forecast: {
+                            margin: 298,
+                            monthly_sales: 22
+                        }
                     }
-                    
+                ];
+                
+                products = sampleProducts;
+                
+                // Populate product dropdown
+                if (productSelect) {
                     products.forEach(product => {
-                        const card = document.createElement('div');
-                        card.className = 'product-card';
-                        card.innerHTML = `
-                            <div class="product-header">
-                                <h3>${product.name}</h3>
-                                <span class="margin-badge">${product.forecast.margin}% Marge</span>
-                            </div>
-                            <div class="product-prices">
-                                <div class="price-item">
-                                    <span class="price-label">Temu:</span>
-                                    <span class="price-value">${product.temu.price.toFixed(2)}€</span>
-                                    <a href="${product.temu.url}" target="_blank" class="product-link" aria-label="Auf Temu ansehen">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                            <polyline points="15 3 21 3 21 9"></polyline>
-                                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                                        </svg>
-                                    </a>
-                                </div>
-                                <div class="price-item">
-                                    <span class="price-label">Kaufland:</span>
-                                    <span class="price-value">${product.kaufland.price.toFixed(2)}€</span>
-                                    <a href="${product.kaufland.url}" target="_blank" class="product-link" aria-label="Auf Kaufland ansehen">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                                            <polyline points="15 3 21 3 21 9"></polyline>
-                                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-meta">
-                                <div class="meta-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <line x1="12" y1="1" x2="12" y2="23"></line>
-                                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                    </svg>
-                                    <span>${product.forecast.monthly_sales} Verkäufe/Monat</span>
-                                </div>
-                                <div class="meta-item">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <polyline points="12 6 12 12 16 14"></polyline>
-                                    </svg>
-                                    <span>Letztes Update: ${new Date().toLocaleDateString('de-AT')}</span>
-                                </div>
-                            </div>
-                        `;
-                        container.appendChild(card);
+                        const option = document.createElement('option');
+                        option.value = product.id;
+                        option.textContent = `${product.name} (${product.forecast.margin}% Marge)`;
+                        productSelect.appendChild(option);
                     });
-                    
-                    // Aktualisiere das letzte Update-Datum im Footer
-                    document.getElementById('last-updated').textContent = new Date().toLocaleString('de-AT');
-                })
-                .catch(error => {
-                    console.error('Fehler beim Laden der Produktdaten:', error);
-                    document.getElementById('products-container').innerHTML = `
-                        <div class="error-message">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="12" y1="8" x2="12" y2="12"></line>
-                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                            </svg>
-                            <p>Die Produktdaten konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</p>
+                }
+                
+                // Display products in grid
+                displayProducts(products);
+                
+                // Initialize calculator with first product
+                if (products.length > 0 && productSelect) {
+                    productSelect.value = products[0].id;
+                    calculateProfit();
+                }
+            }
+            
+            function displayProducts(productsToDisplay) {
+                if (!productsContainer) return;
+                
+                // Clear container
+                productsContainer.innerHTML = '';
+                
+                if (productsToDisplay.length === 0) {
+                    productsContainer.innerHTML = '<p class="no-results">Keine Produkte gefunden. Bitte versuchen Sie es später erneut.</p>';
+                    return;
+                }
+                
+                productsToDisplay.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <div class="product-header">
+                            <h3>${product.name}</h3>
+                            <span class="margin-badge">${product.forecast.margin}% Marge</span>
+                        </div>
+                        <div class="product-prices">
+                            <div class="price-item">
+                                <span class="price-label">Temu:</span>
+                                <span class="price-value">${product.temu.price.toFixed(2)}€</span>
+                                <a href="${product.temu.url}" target="_blank" class="product-link" aria-label="Auf Temu ansehen">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                </a>
+                            </div>
+                            <div class="price-item">
+                                <span class="price-label">Kaufland:</span>
+                                <span class="price-value">${product.kaufland.price.toFixed(2)}€</span>
+                                <a href="${product.kaufland.url}" target="_blank" class="product-link" aria-label="Auf Kaufland ansehen">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                        <polyline points="15 3 21 3 21 9"></polyline>
+                                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-meta">
+                            <div class="meta-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="1" x2="12" y2="23"></line>
+                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                                </svg>
+                                <span>${product.forecast.monthly_sales} Verkäufe/Monat</span>
+                            </div>
+                            <div class="meta-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>Letztes Update: ${new Date().toLocaleDateString('de-AT')}</span>
+                            </div>
                         </div>
                     `;
+                    productsContainer.appendChild(card);
                 });
+            }
+            
+            function calculateProfit() {
+                if (!productSelect || !salesVolume || !feePercentage) return;
+                
+                const selectedProductId = parseInt(productSelect.value);
+                if (isNaN(selectedProductId)) {
+                    resetCalculator();
+                    return;
+                }
+                
+                const product = products.find(p => p.id === selectedProductId);
+                if (!product) {
+                    resetCalculator();
+                    return;
+                }
+                
+                const volume = parseInt(salesVolume.value);
+                const fee = parseFloat(feePercentage.value) / 100;
+                
+                const temuPrice = product.temu.price;
+                const kauflandPrice = product.kaufland.price;
+                
+                const grossProfitValue = (kauflandPrice - temuPrice) * volume;
+                const netProfitValue = grossProfitValue - (kauflandPrice * fee * volume);
+                const marginValue = ((netProfitValue / (temuPrice * volume)) * 100).toFixed(0);
+                
+                grossProfit.textContent = grossProfitValue.toFixed(2) + '€';
+                netProfit.textContent = netProfitValue.toFixed(2) + '€';
+                margin.textContent = marginValue + '%';
+                
+                updateChart(product, volume);
+            }
+            
+            function resetCalculator() {
+                grossProfit.textContent = '0.00€';
+                netProfit.textContent = '0.00€';
+                margin.textContent = '0%';
+                
+                if (chart) {
+                    chart.destroy();
+                    chart = null;
+                }
+            }
+            
+            function updateChart(product, volume) {
+                const ctx = document.getElementById('profit-chart');
+                if (!ctx) return;
+                
+                // Destroy existing chart if it exists
+                if (chart) {
+                    chart.destroy();
+                }
+                
+                // Calculate profit for different volumes
+                const volumes = [10, 20, 30, 40, 50, 75, 100, 150, 200];
+                const profits = volumes.map(vol => {
+                    const grossProfit = (product.kaufland.price - product.temu.price) * vol;
+                    const fee = parseFloat(feePercentage.value) / 100;
+                    return grossProfit - (product.kaufland.price * fee * vol);
+                });
+                
+                // Create new chart
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: volumes,
+                        datasets: [{
+                            label: 'Nettogewinn (€)',
+                            data: profits,
+                            backgroundColor: 'rgba(0, 82, 180, 0.2)',
+                            borderColor: 'rgba(0, 82, 180, 1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(0, 82, 180, 1)',
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Nettogewinn (€)'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Verkaufsvolumen (Stück)'
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `Nettogewinn: ${context.parsed.y.toFixed(2)}€`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Highlight current volume on chart
+                const currentVolumeIndex = volumes.indexOf(volume);
+                if (currentVolumeIndex !== -1) {
+                    chart.data.datasets[0].pointBackgroundColor = volumes.map((_, index) => 
+                        index === currentVolumeIndex ? 'rgba(76, 175, 80, 1)' : 'rgba(0, 82, 180, 1)'
+                    );
+                    chart.data.datasets[0].pointRadius = volumes.map((_, index) => 
+                        index === currentVolumeIndex ? 6 : 4
+                    );
+                    chart.update();
+                }
+            }
+            
+            function filterProducts() {
+                if (!searchInput || !productsContainer) return;
+                
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (searchTerm === '') {
+                    displayProducts(products);
+                    return;
+                }
+                
+                const filteredProducts = products.filter(product => 
+                    product.name.toLowerCase().includes(searchTerm) || 
+                    product.category.toLowerCase().includes(searchTerm)
+                );
+                
+                displayProducts(filteredProducts);
+            }
+            
+            function exportProductsToCSV() {
+                if (products.length === 0) return;
+                
+                const headers = ['Produkt', 'Kategorie', 'Temu Preis (€)', 'Kaufland Preis (€)', 'Preisdifferenz (€)', 'Marge (%)', 'Monatliche Verkäufe'];
+                
+                const rows = products.map(product => [
+                    product.name,
+                    product.category,
+                    product.temu.price.toFixed(2),
+                    product.kaufland.price.toFixed(2),
+                    (product.kaufland.price - product.temu.price).toFixed(2),
+                    product.forecast.margin,
+                    product.forecast.monthly_sales
+                ]);
+                
+                let csvContent = headers.join(',') + '\n';
+                rows.forEach(row => {
+                    csvContent += row.join(',') + '\n';
+                });
+                
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'temu-kaufland-produkte.csv');
+                link.style.display = 'none';
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         });
     </script>
 </body>
